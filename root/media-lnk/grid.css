@@ -146,7 +146,7 @@
     margin: -1em 0 1em 0em;
   }
   .Grid--gutters > .Grid-cell {
-    padding: 1em 1em 0 1em;
+    padding: 0.5em 1em 0.5 1em;
   }
   
   .Grid--guttersLg {
