@@ -1,0 +1,43 @@
+---
+layout: page
+type: project
+show_title: false
+lightbox: true
+---
+
+<head>
+    <meta charset=utf-8 />
+    <link href="../media/grid.css" type="text/css" rel="stylesheet">
+    <link href="../root/portfolio/portfolio.css" type="text/css" rel="stylesheet">
+</head>
+
+<div class="layout--project">
+    <h1 h2 class="u-textCenter">{{page.title}}</h1>
+    <div class="project__content" itemprop="contentBody">
+
+        <div class="project-image u-textCenter">
+            {% contentblock project-image %}
+        </div>
+
+        {%- if page.projectUrl -%}
+            <div class="project__url">
+                {%- include extensions/youtube.html id=page.projectUrl -%}
+            </div>
+        {%- endif -%}
+
+        <div class="project__image">
+
+        </div>    
+
+        <div class="Grid Grid--gutters large-Grid--fit">
+            <div class="Grid-cell">
+                <h2 class="portfolio-header">Project Description</h2>
+                {% contentblock project-description %}
+            </div>
+            <div class="Grid-cell">
+                <h2 class="portfolio-header">Development Details</h2>
+                {% contentblock dev-details %}
+            </div>
+          </div>
+    </div>
+</div>

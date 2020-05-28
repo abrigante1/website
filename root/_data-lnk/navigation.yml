@@ -1,0 +1,19 @@
+header:
+
+    # Blog
+  - titles:
+      en: &EN Blog
+    url: /blog/
+
+    # About
+  - titles:
+      en: &EN About Me
+    url: /about.html
+  
+  - titles:
+      en: &EN Portfolio
+    url: /portfolio.html
+  
+  - titles:
+      en: &EN Resume
+    url: /resume.html

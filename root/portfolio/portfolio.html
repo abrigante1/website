@@ -1,0 +1,16 @@
+---
+layout: page
+title: Portfolio
+permalink: /portfolio.html
+---
+<div class="layout--articles">
+  <section class="my-5">
+    <header><h2 id="solo-projects">Solo Projects</h2></header>
+    {%- include article-list.html articles=site.solo-projects type='grid'-%}
+  </section>
+
+  <section class="my-5">
+    <header><h2 id="team-projects">Team Projects</h2></header>
+    {%- include article-list.html articles=site.team-projects type='grid'-%}
+  </section>
+</div>
