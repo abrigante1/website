@@ -13,4 +13,4 @@ Anthony Brigante:
   douban    : # "user_name" the last part of your profile url, e.g. https://www.douban.com/people/user_name
   linkedin  : apbrigante # "user_name" the last part of your profile url, e.g. https://www.linkedin.com/in/user_name
   github    : abrigante1 # "user_name" the last part of your profile url, e.g. https://github.com/user_name
-  npm       : # "user_name" the last part of your profile url, e.g. https://www.npmjs.com/~user_name
+  npm       : # "" the last part of your profile url, e.g. https://www.npmjs.com/~user_name
