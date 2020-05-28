@@ -1,0 +1,8 @@
+I"¨
+<p>The Ember Editor is the Editor for the Ember Game Engine - a custom game engine, my team and I wrote in C++ with OpenGL. The Game Engine was eventually used to create a 2D SciFi Platformer called Contingency. I was solely responsible for creating and maintaining the entire editor toolset.</p>
+
+<p>The Ember Editor lets designers create objects, attach components and manipulate them in real-time. I also implemented undo and redo features into the editor to help my teamâ€™s designers perform fast iterations.</p>
+
+<p>Additionally, I designed and implemented the Core Engine features, including an Entity-Component System that was used and relied on by the entire team.</p>
+
+:ET

@@ -1,0 +1,129 @@
+I"�<h1 id="anthony-brigante">Anthony Brigante</h1>
+
+<div class="Grid Grid--gutters large-Grid--fit u-textCenter u-contactInfo">
+  <div class="Grid-cell">
+    <a href="mailto:anthonyprbrigante@gmail.com">anthonypbrigante@gmail.com</a>
+  </div>
+  <div class="Grid-cell">
+    <a href="https://www.linkedin.com/in/apbrigante">LinkedIn</a>
+  </div>
+  <div class="Grid-cell">
+    <a href="https://www.github.com/abrigante1">GitHub</a>
+  </div>
+</div>
+
+<h2 id="education">Education</h2>
+
+<h3 id="bachelor-of-science-in-computer-science">Bachelor of Science in Computer Science</h3>
+<p><code class="highlighter-rouge">Expected April 2021</code> 
+DigiPen Institute of Technology</p>
+
+<h2 id="skills">Skills</h2>
+
+<div class="Grid Grid--gutters u-fontScalar">
+  <div class="Grid-cell Grid-cell--centerText">
+    <div class="Grid-cell--cellHeader"> Programming Languages </div>
+    <ul>
+      <li> C++ </li>
+      <li> C </li>
+      <li> C# </li>
+    </ul>
+  </div>
+  <div class="Grid-cell Grid-cell--centerText">
+    <div class="Grid-cell--cellHeader"> APIs </div>
+    <ul>
+      <li> JUCE </li>
+      <li> Wwise SDK API </li>
+      <li> ImGUI </li>
+    </ul>
+  </div>
+  <div class="Grid-cell Grid-cell--centerText">
+    <div class="Grid-cell--cellHeader"> Workflow </div>
+     <ul>
+      <li> Agile </li>
+      <li> Scrum </li>
+      <li> Kanban </li>
+    </ul>
+  </div>
+  <div class="Grid-cell Grid-cell--centerText">
+    <div class="Grid-cell--cellHeader"> Version Control </div>
+    <ul>
+      <li> Git </li>
+      <li> Perforce </li>
+      <li> SVN (familiar) </li>
+    </ul>
+  </div>
+</div>
+<h2 id="internship-experience">Internship Experience</h2>
+
+<h3 id="audio-programming-intern">Audio Programming Intern</h3>
+<p><code class="highlighter-rouge">May 2019 - Aug 2019</code>
+Tsugi Studio - Niigata, Japan</p>
+
+<ul>
+  <li><strong>Built</strong> an application in C# to dynamically generate and compile C++ software for 3 different platforms.</li>
+  <li><strong>Optimized</strong> C++ DSP Code to achieve a performance increase of ~4900% via Data Oriented Design and SIMD assembly intrinsics.</li>
+  <li><strong>Ported</strong> C# DSP objects into C++.</li>
+  <li><strong>Wrote</strong> a C/C++ Fast Fourier Transform capable of using a 4096-byte window in real-time.</li>
+</ul>
+
+<h2 id="academic-game-projects">Academic Game Projects</h2>
+
+<h3 id="audio-programmer--technical-director">Audio Programmer | Technical Director</h3>
+<p><code class="highlighter-rouge">April 2018 - April 2019</code>
+Higher Power - Team Size: 7</p>
+
+<ul>
+  <li><strong>Built</strong> a VR God Game for the Oculus rift using the Unreal Engine.</li>
+  <li><strong>Programed</strong> a custom Wwise HRTF plugin in C++ to better understand audio spatialization.</li>
+  <li><strong>Architected</strong> a C++ Blueprint Temperature System to allow for emergent gameplay.</li>
+  <li><strong>Ensured</strong> that code quality adhered to style and performance standards by using an Unreal Style Guide.</li>
+</ul>
+
+<h3 id="core-engine-programmer--tools-programmer">Core Engine Programmer | Tools Programmer</h3>
+<p><code class="highlighter-rouge">Sept 2017 - April 2018</code>
+<a href="portfolio/ember_editor.html" class="u-project">Contingency</a> - Team Size: 7</p>
+
+<ul>
+  <li><strong>Created</strong> a Custom 2D Game Engine in C++ and OpenGL.</li>
+  <li><strong>Architected and Implemented</strong> a component system for dynamic Game Object Creation.</li>
+  <li><strong>Designed and Built</strong> a scene and game object editor using ImGUI to allow our Game Designers to work in-engine.</li>
+</ul>
+
+<h2 id="audio-programming-projects">Audio Programming Projects</h2>
+
+<h3 id="granular-synthesizer"><a href="portfolio/granular_synth.html" class="u-project">Granular Synthesizer</a></h3>
+<p><code class="highlighter-rouge">March 2019 - May 2019</code></p>
+
+<ul>
+  <li><strong>Learned</strong> the fundementals of the JUCE Audio C++ API</li>
+  <li><strong>Implemented</strong> an effecient system capable of running 10 large grain clouds simultaniously in real-time.</li>
+  <li><strong>Architected</strong> a radnomization system for a grain’s start/stop positions to create unique sound textures.</li>
+</ul>
+
+<h3 id="midi-synthesizer">MIDI Synthesizer</h3>
+<p><code class="highlighter-rouge">Jan 2017 - May 2017</code>
+Course: Introduction to Audio Programming (ECE101L)</p>
+
+<ul>
+  <li><strong>Programmed</strong> an ARM Microcontroller to be an Additive MIDI Synthesizer.</li>
+  <li><strong>Designed</strong>  a system to parse and understand MIDI Commands in real-time.</li>
+  <li><strong>Gained Experienced</strong> with Q-Format Integer Math</li>
+  <li><strong>Built</strong> a DIgital Variable State Filter to gain familiarity with Digital Signal Processing.</li>
+</ul>
+
+<h2 id="leadership-experience">Leadership Experience</h2>
+
+<h3 id="teachers-assistant---introduction-to-audio-programming-ece101l">Teacher’s Assistant - Introduction to Audio Programming (ECE101L)</h3>
+<p><code class="highlighter-rouge">Jan 2018 - Present</code></p>
+
+<ul>
+  <li><strong>Mentored</strong> over 40 students on the fundementals of audio programming.</li>
+  <li><strong>Graded</strong> programming assignments based on high-quality code via style and performance metrics.</li>
+</ul>
+
+<!-- ### Footer
+
+Last updated: May 2013 -->
+
+:ET

@@ -1,0 +1,6 @@
+I"¸
+<p>Bullet Bound is a top-down twin-stick ricochet shooter where bullets are your life. The game was written in C with the use of a custom OpenGL wrapper provided by DigiPen.</p>
+
+<p>I was personally in charge of the collision detection, and the bullet collision resolution. I also implemented the FMOD API and wrote a small wrapper Audio wrapper to make things easier for my teammates to use audio events and implement sound effects.</p>
+
+:ET
