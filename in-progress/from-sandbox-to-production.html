@@ -280,7 +280,7 @@
 
 <!-- end custom main top snippet -->
 <article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1>From Sandbox to Production</h1></header></div><meta itemprop="headline" content="From Sandbox to Production"><div class="article__info clearfix"><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Jun 01, 2020</span>
-            </li></ul></div><meta itemprop="author" content="Anthony Brigante"/><meta itemprop="datePublished" content="2020-06-01T22:47:04-07:00"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+            </li></ul></div><meta itemprop="author" content="Anthony Brigante"/><meta itemprop="datePublished" content="2020-06-01T22:53:53-07:00"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
 
 <!-- end custom article top snippet -->
 <div class="article__content" itemprop="articleBody"><p>Welcome back! As mentioned in the previous post, this time around I’ll be doing a technical deep dive into the systems that I will be re-architecting for the first version of the production branch.<!--more--> I began this process by taking a look at all the features I had implemented in sandbox and then created a plan for which features I wanted to tackle first.</p>
@@ -451,7 +451,7 @@
     <span class="k">pub</span> <span class="k">fn</span> <span class="nf">draw</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">ctx</span> <span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="nn">ggez</span><span class="p">::</span><span class="n">Context</span><span class="p">,</span> <span class="n">world</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">World</span><span class="p">)</span> <span class="p">{</span>
         
         <span class="nn">graphics</span><span class="p">::</span><span class="nf">clear</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span><span class="nf">.into</span><span class="p">());</span>
-
+ 
         <span class="k">let</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="o">=</span> <span class="nn">graphics</span><span class="p">::</span><span class="nf">drawable_size</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
 
         <span class="k">let</span> <span class="n">sprites</span>           <span class="o">=</span> <span class="n">world</span><span class="py">.read_storage</span><span class="p">::</span><span class="o">&lt;</span><span class="nn">crate</span><span class="p">::</span><span class="nn">components</span><span class="p">::</span><span class="n">Sprite</span><span class="o">&gt;</span><span class="p">();</span>
@@ -504,7 +504,7 @@
 <p><img src="/assets/boundless/images/stp-rendering.png" alt="Image" /></p>
 
 <p>And that’s a wrap! With our rendering system done, up next I’ll be porting the TileMap data structure over into production. I have a few ideas on how I want to go about doing this, and I’m pretty excited for how it will turn out. See you then!</p>
-</div><section class="article__sharing d-print-none"></section><div class="d-print-none"><footer class="article__footer"><meta itemprop="dateModified" content="2020-06-01T22:47:04-07:00"><!-- start custom article footer snippet -->
+</div><section class="article__sharing d-print-none"></section><div class="d-print-none"><footer class="article__footer"><meta itemprop="dateModified" content="2020-06-01T22:53:53-07:00"><!-- start custom article footer snippet -->
 
 <!-- end custom article footer snippet -->
 </footer>
