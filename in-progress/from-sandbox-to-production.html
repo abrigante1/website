@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>From Sandbox to Production - Anthony Brigante</title>
 
-<meta name="description" content="Welcome back! As mentioned in the previous post, this time around I’ll be doing a technical deep dive into the systems I’ve begin re-architecting for the fir...">
+<meta name="description" content="Welcome back! As mentioned in the previous post, this time around I’ll be doing a technical deep dive into the systems that I will be re-architecting for the...">
 <link rel="canonical" href="https://www.abrigante.com/in-progress/from-sandbox-to-production.html"><link rel="alternate" type="application/rss+xml" title="Anthony Brigante" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/favicon.ico">
 
 <meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/browserconfig.xml">
@@ -280,10 +280,10 @@
 
 <!-- end custom main top snippet -->
 <article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1>From Sandbox to Production</h1></header></div><meta itemprop="headline" content="From Sandbox to Production"><div class="article__info clearfix"><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Jun 01, 2020</span>
-            </li></ul></div><meta itemprop="author" content="Anthony Brigante"/><meta itemprop="datePublished" content="2020-06-01T22:28:24-07:00"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+            </li></ul></div><meta itemprop="author" content="Anthony Brigante"/><meta itemprop="datePublished" content="2020-06-01T22:47:04-07:00"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
 
 <!-- end custom article top snippet -->
-<div class="article__content" itemprop="articleBody"><p>Welcome back! As mentioned in the previous post, this time around I’ll be doing a technical deep dive into the systems I’ve begin re-architecting for the first version of the production branch.<!--more--> I began this process by taking a look at all the features I currently had implemented and then creating a plan for which features I wanted to tackle first.</p>
+<div class="article__content" itemprop="articleBody"><p>Welcome back! As mentioned in the previous post, this time around I’ll be doing a technical deep dive into the systems that I will be re-architecting for the first version of the production branch.<!--more--> I began this process by taking a look at all the features I had implemented in sandbox and then created a plan for which features I wanted to tackle first.</p>
 
 <p>Here’s the original list of Sandbox Features:</p>
 
@@ -316,7 +316,7 @@
   </li>
 </ul>
 
-<p>I then took this list, created more explicit systems, and then created a flowchart to plan out which features I’ll implement first.</p>
+<p>And here’s the flowchart plan:</p>
 
 <pre class="center"><code class="language-mermaid">graph TD
   render[Rendering] --&gt; tm[TileMap]
@@ -328,7 +328,7 @@
 
 <h1 id="rendering">Rendering</h1>
 
-<p>The core goal I had in mind for the rendering pipeline was for the system to be fairly modular and require as little hand coding as possible when I add in a new sprite. I also wanted to make sure that the rendering system was built with fact that Boundless will have a lot of tiles rendering on the screen at a given moment in time. With these two goals in mind, I decided that I wanted to make use of ggez’s <code class="language-plaintext highlighter-rouge">SpriteBatch</code> feature. This allows me to queue up tiles using the same sprite into a batch, and then render the entire batch in the same draw call. To take this a step further, I decided that rather then use a sprite per tile, I could use spritesheets for like-entities resulting in the ability to batch draw all sprites that use the same <em>sprite sheet</em> rather then just the same <em>sprite</em>. However, before we get ahead of ourselves, the first thing we need to create would be some method of storing an entities positional data…</p>
+<p>The core goal I had in mind for the rendering pipeline was for the system to be fairly modular and require as little hand coding as possible when adding in additional sprites. I also wanted to make sure that the rendering system was built for rendering a lot of tiles on the screen at a given moment in time. With these two goals in mind, I decided that I wanted to make use of ggez’s <code class="language-plaintext highlighter-rouge">SpriteBatch</code> feature. This allows me to queue up tiles using the same sprite into a batch, and then render the entire batch in the same draw call. To take this a step further, I decided that rather then use a sprite per tile, I could use spritesheets for similar entities resulting in the ability to batch together all sprites that use the same <em>sprite sheet</em> rather then just the same <em>sprite</em>. However, before we get ahead of ourselves, the first thing we need to create would be some method of storing an entities positional data…</p>
 
 <h2 id="transforms">Transforms</h2>
 
@@ -357,7 +357,7 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Nothing too complex! I did implement a few <a href="https://github.com/abrigante1/boundless/blob/30747bdfb16fcf069d0819bf3b453dd41b638865/src/resources/asset_handler.rs#L14">helper functions</a> onto the <code class="language-plaintext highlighter-rouge">AssetHandler</code>, but those are mainly for error checking and don’t do anything non-trival. What the <code class="language-plaintext highlighter-rouge">AssetHandler</code> allows me to do, is have a single structure that contains the the <code class="language-plaintext highlighter-rouge">SpriteBatch</code> for a given spritesheet which is hashed under a string key that’s nothing more then the file name of the spritesheet. Thus, now I can easily grab any of the loaded spritesheets, and not worry about having a bunch of references laying around inside the <code class="language-plaintext highlighter-rouge">Sprite</code> component. Before we get to that, let’s take a quick look at how we initalize the <code class="language-plaintext highlighter-rouge">AssetHandler</code>:</p>
+<p>Nothing too complex! I did implement a few <a href="https://github.com/abrigante1/boundless/blob/30747bdfb16fcf069d0819bf3b453dd41b638865/src/resources/asset_handler.rs#L14">helper functions</a> onto the <code class="language-plaintext highlighter-rouge">AssetHandler</code>, but those are mainly for error checking and don’t do anything non-trival. What the <code class="language-plaintext highlighter-rouge">AssetHandler</code> allows me to do, is have a single structure that contains the the <code class="language-plaintext highlighter-rouge">SpriteBatch</code> for a given spritesheet which is hashed under a string key that’s nothing more then the file name of the spritesheet. Now, I can easily grab any of the loaded spritesheets and not worry about having a bunch of references laying around inside the <code class="language-plaintext highlighter-rouge">Sprite</code> component. Before we get to that, let’s take a quick look at how we initalize the <code class="language-plaintext highlighter-rouge">AssetHandler</code>:</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// main.rs -- line: 156</span>
 
@@ -370,14 +370,14 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Tada! It’s actually quite straightforward and adding an additional asset only requires a line of code. A quite note - the <code class="language-plaintext highlighter-rouge">Context</code> data structure is an extremely important structure created by ggez. You need a reference to it to access a large number of ggez’s tools. In this case, it’s used to load the <code class="language-plaintext highlighter-rouge">Image</code> from the file:</p>
+<p>Tada! It’s actually quite straightforward and adding an additional asset only requires a line of code. The <code class="language-plaintext highlighter-rouge">Context</code> data structure use see in the function parameter arguments is an extremely important structure created by ggez. You need a reference to it to access a large number of ggez’s tools. In this case, it’s used to load the <code class="language-plaintext highlighter-rouge">Image</code> from a file:</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// resources/asset_handler.rs -- line: 30</span>
 
 <span class="k">let</span> <span class="n">image</span> <span class="o">=</span> <span class="nn">graphics</span><span class="p">::</span><span class="nn">Image</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
 </code></pre></div></div>
 
-<p>The <code class="language-plaintext highlighter-rouge">Image</code> is then simply passed to a constructer for a <code class="language-plaintext highlighter-rouge">SpriteBatch</code> which is then stored in the <code class="language-plaintext highlighter-rouge">AssetHandler</code>. The next important data structure is the <code class="language-plaintext highlighter-rouge">Sprite</code> component – this is a specs <code class="language-plaintext highlighter-rouge">Component</code> that stores a number of useful pieces of data that detail what spritesheet the entity uses and which individual sprite in the spritesheet is being requested.</p>
+<p>The created <code class="language-plaintext highlighter-rouge">Image</code> is then simply passed to a constructor for a <code class="language-plaintext highlighter-rouge">SpriteBatch</code> which is then stored in the <code class="language-plaintext highlighter-rouge">AssetHandler</code>. The next important data structure is the <code class="language-plaintext highlighter-rouge">Sprite</code> component – this is a specs <code class="language-plaintext highlighter-rouge">Component</code> that stores a number of useful pieces of data that detail what spritesheet the entity uses and which individual sprite in the spritesheet is being requested.</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// components.rs -- line: 8</span>
 <span class="k">pub</span> <span class="k">struct</span> <span class="n">Sprite</span> <span class="p">{</span>
@@ -389,7 +389,7 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>If you aren’t very familiar with rust, you might be very confused at what type a <code class="language-plaintext highlighter-rouge">std::borrow::Cow&lt;'static, str&gt;</code> is, and if I’m being quite honest - I’m not exactly sure either! Rust handles strings very differently then C++ does, and it’s been taking me a bit to get my head completely wrapped around how they exactly work. In turn, when trying to figure out how to store a string on a struct - I found out the <code class="language-plaintext highlighter-rouge">Cow</code> type via how Amethyst implements it’s <code class="language-plaintext highlighter-rouge">Named</code> component. From what I understand at the moment, <code class="language-plaintext highlighter-rouge">Cow</code> stands for “Copy on Write” and essentially will always perform a string copy rather then a string move. I plan on spending a bit more time brushing up on strings in Rust to better understand whats going on here and once I do I’ll probably make a follow-up post and then edit in a reference to that here.</p>
+<p>If you aren’t very familiar with Rust, you might be very confused at what type a <code class="language-plaintext highlighter-rouge">std::borrow::Cow&lt;'static, str&gt;</code> is, and if I’m being quite honest - I’m not exactly sure either! Rust handles strings very differently then C++ does, and it’s been taking me a bit to get my head completely wrapped around how exactly they work. In turn, when trying to figure out how to store a string on a struct - I found the <code class="language-plaintext highlighter-rouge">Cow</code> type via how Amethyst implements it’s <code class="language-plaintext highlighter-rouge">Named</code> component. From what I understand at the moment, <code class="language-plaintext highlighter-rouge">Cow</code> stands for “Copy on Write” and essentially will always perform a string copy rather then a string move on write to the variable. I plan on spending a bit more time brushing up on strings in Rust to better understand whats going on here and once I do I’ll probably make a follow-up post and then edit in a reference to that here.</p>
 
 <p>Moving past the <code class="language-plaintext highlighter-rouge">Cow</code> complexities, what we have stored in the <code class="language-plaintext highlighter-rouge">Sprite</code> component are essentially five pieces of data that describe the specific sprite the component is referring to. The <code class="language-plaintext highlighter-rouge">spritesheet_dir</code> contains the filename of the spritesheet to use, and then the subsequent offset variables refer to the coordinate of the top left pixel of the desired sprite. From that, the width/height variables are pretty obvious in function - they are the width and the height of the given sprite in the spritesheet.</p>
 
@@ -504,7 +504,7 @@
 <p><img src="/assets/boundless/images/stp-rendering.png" alt="Image" /></p>
 
 <p>And that’s a wrap! With our rendering system done, up next I’ll be porting the TileMap data structure over into production. I have a few ideas on how I want to go about doing this, and I’m pretty excited for how it will turn out. See you then!</p>
-</div><section class="article__sharing d-print-none"></section><div class="d-print-none"><footer class="article__footer"><meta itemprop="dateModified" content="2020-06-01T22:28:24-07:00"><!-- start custom article footer snippet -->
+</div><section class="article__sharing d-print-none"></section><div class="d-print-none"><footer class="article__footer"><meta itemprop="dateModified" content="2020-06-01T22:47:04-07:00"><!-- start custom article footer snippet -->
 
 <!-- end custom article footer snippet -->
 </footer>
