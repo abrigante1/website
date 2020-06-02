@@ -1,0 +1,222 @@
+I"�<p>Welcome back! As mentioned in the previous post, this time around I’ll be doing a technical deep dive into the systems I’ve begin re-architecting for the first version of the production branch.<!--more--> I began this process by taking a look at all the features I currently had implemented and then creating a plan for which features I wanted to tackle first.</p>
+
+<p>Here’s the original list of Sandbox Features:</p>
+
+<ul>
+  <li>Rendering System
+    <ul>
+      <li>Sprite Sheets
+        <ul>
+          <li>Sprite Culling</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>God Camera Controls
+    <ul>
+      <li>Zoom</li>
+      <li>Pan</li>
+    </ul>
+  </li>
+  <li>World Generation
+    <ul>
+      <li>Basic Perlin-Noise Height Map</li>
+    </ul>
+  </li>
+  <li>Tile Interaction
+    <ul>
+      <li>Tiles stored in a TileMap</li>
+      <li>Can click on a tile to see it’s data, or delete it.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>I then took this list, created more explicit systems, and then created a flowchart to plan out which features I’ll implement first.</p>
+
+<pre class="center"><code class="language-mermaid">graph TD
+  render[Rendering] --&gt; tm[TileMap]
+  tm --&gt; wg[World Generation]
+  wg --&gt; is[Input System]
+  is --&gt; cc[Camera Controls]
+  cc --&gt; ti[Tile Interaction System]
+</code></pre>
+
+<h1 id="rendering">Rendering</h1>
+
+<p>The core goal I had in mind for the rendering pipeline was for the system to be fairly modular and require as little hand coding as possible when I add in a new sprite. I also wanted to make sure that the rendering system was built with fact that Boundless will have a lot of tiles rendering on the screen at a given moment in time. With these two goals in mind, I decided that I wanted to make use of ggez’s <code class="language-plaintext highlighter-rouge">SpriteBatch</code> feature. This allows me to queue up tiles using the same sprite into a batch, and then render the entire batch in the same draw call. To take this a step further, I decided that rather then use a sprite per tile, I could use spritesheets for like-entities resulting in the ability to batch draw all sprites that use the same <em>sprite sheet</em> rather then just the same <em>sprite</em>. However, before we get ahead of ourselves, the first thing we need to create would be some method of storing an entities positional data…</p>
+
+<h2 id="transforms">Transforms</h2>
+
+<p>via a <code class="language-plaintext highlighter-rouge">Transform</code> component! The <code class="language-plaintext highlighter-rouge">Transform</code> component is actually quite trivial:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// components.rs -- line: 54</span>
+
+<span class="k">pub</span> <span class="k">struct</span> <span class="n">Transform</span> <span class="p">{</span>
+    <span class="k">pub</span> <span class="n">position</span> <span class="p">:</span> <span class="nn">math</span><span class="p">::</span><span class="nn">Point2</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">f32</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="k">pub</span> <span class="n">scale</span>    <span class="p">:</span> <span class="nn">math</span><span class="p">::</span><span class="nn">Vector2</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">f32</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now by attaching a <code class="language-plaintext highlighter-rouge">Transform</code> component to an entity, we can store both it’s world-position data as well as the object’s scale.</p>
+
+<p>It does have two additional <a href="https://github.com/abrigante1/boundless/blob/30747bdfb16fcf069d0819bf3b453dd41b638865/src/components.rs#L54">helper functions</a> which are simply used to get a bounding box of the it’s owning entity via either it’s <code class="language-plaintext highlighter-rouge">Sprite</code> or a <code class="language-plaintext highlighter-rouge">Point2</code> containing the width/height of the bounding box. With the <code class="language-plaintext highlighter-rouge">Transform</code> out of the way, lets move back to Sprite Sheets and Sprite Batching.</p>
+
+<h2 id="sprite-sheets-and-sprite-batching">Sprite Sheets and Sprite Batching</h2>
+
+<p>To support these features, I created a few important data structures - the <code class="language-plaintext highlighter-rouge">AssetHandler</code> resource and the <code class="language-plaintext highlighter-rouge">Sprite</code> component. The <code class="language-plaintext highlighter-rouge">AssetHandler</code> is a pretty straight forward struct that looks like the following:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// resources/asset_handler.rs</span>
+
+<span class="k">pub</span> <span class="k">struct</span> <span class="n">AssetHandler</span> <span class="p">{</span>
+    <span class="k">pub</span> <span class="n">asset_list</span> <span class="p">:</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span> <span class="n">SpriteBatch</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Nothing too complex! I did implement a few <a href="https://github.com/abrigante1/boundless/blob/30747bdfb16fcf069d0819bf3b453dd41b638865/src/resources/asset_handler.rs#L14">helper functions</a> onto the <code class="language-plaintext highlighter-rouge">AssetHandler</code>, but those are mainly for error checking and don’t do anything non-trival. What the <code class="language-plaintext highlighter-rouge">AssetHandler</code> allows me to do, is have a single structure that contains the the <code class="language-plaintext highlighter-rouge">SpriteBatch</code> for a given spritesheet which is hashed under a string key that’s nothing more then the file name of the spritesheet. Thus, now I can easily grab any of the loaded spritesheets, and not worry about having a bunch of references laying around inside the <code class="language-plaintext highlighter-rouge">Sprite</code> component. Before we get to that, let’s take a quick look at how we initalize the <code class="language-plaintext highlighter-rouge">AssetHandler</code>:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// main.rs -- line: 156</span>
+
+<span class="c">// Loads all Sprite Assets into the AssetHandler</span>
+<span class="k">fn</span> <span class="nf">load_assets</span><span class="p">(</span> <span class="n">ctx</span> <span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Context</span><span class="p">,</span> <span class="n">asset_handler</span> <span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">AssetHandler</span> <span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">asset_handler</span><span class="nf">.add_asset</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">"/characters_spritesheet.png"</span><span class="p">)</span><span class="nf">.expect</span><span class="p">(</span><span class="s">"Asset Could Not Be Loaded!"</span><span class="p">);</span>
+    <span class="n">asset_handler</span><span class="nf">.add_asset</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">"/tiles_spritesheet.png"</span><span class="p">)</span><span class="nf">.expect</span><span class="p">(</span><span class="s">"Asset Could Not Be Loaded!"</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Tada! It’s actually quite straightforward and adding an additional asset only requires a line of code. A quite note - the <code class="language-plaintext highlighter-rouge">Context</code> data structure is an extremely important structure created by ggez. You need a reference to it to access a large number of ggez’s tools. In this case, it’s used to load the <code class="language-plaintext highlighter-rouge">Image</code> from the file:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// resources/asset_handler.rs -- line: 30</span>
+
+<span class="k">let</span> <span class="n">image</span> <span class="o">=</span> <span class="nn">graphics</span><span class="p">::</span><span class="nn">Image</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">Image</code> is then simply passed to a constructer for a <code class="language-plaintext highlighter-rouge">SpriteBatch</code> which is then stored in the <code class="language-plaintext highlighter-rouge">AssetHandler</code>. The next important data structure is the <code class="language-plaintext highlighter-rouge">Sprite</code> component – this is a specs <code class="language-plaintext highlighter-rouge">Component</code> that stores a number of useful pieces of data that detail what spritesheet the entity uses and which individual sprite in the spritesheet is being requested.</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// components.rs -- line: 8</span>
+<span class="k">pub</span> <span class="k">struct</span> <span class="n">Sprite</span> <span class="p">{</span>
+    <span class="k">pub</span> <span class="n">spritesheet_dir</span><span class="p">:</span> <span class="nn">std</span><span class="p">::</span><span class="nn">borrow</span><span class="p">::</span><span class="n">Cow</span><span class="o">&lt;</span><span class="nv">'static</span><span class="p">,</span> <span class="nb">str</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="k">pub</span> <span class="n">x_offset</span> <span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+    <span class="k">pub</span> <span class="n">y_offset</span> <span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+    <span class="k">pub</span> <span class="n">width</span>    <span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+    <span class="k">pub</span> <span class="n">height</span>   <span class="p">:</span> <span class="nb">u32</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>If you aren’t very familiar with rust, you might be very confused at what type a <code class="language-plaintext highlighter-rouge">std::borrow::Cow&lt;'static, str&gt;</code> is, and if I’m being quite honest - I’m not exactly sure either! Rust handles strings very differently then C++ does, and it’s been taking me a bit to get my head completely wrapped around how they exactly work. In turn, when trying to figure out how to store a string on a struct - I found out the <code class="language-plaintext highlighter-rouge">Cow</code> type via how Amethyst implements it’s <code class="language-plaintext highlighter-rouge">Named</code> component. From what I understand at the moment, <code class="language-plaintext highlighter-rouge">Cow</code> stands for “Copy on Write” and essentially will always perform a string copy rather then a string move. I plan on spending a bit more time brushing up on strings in Rust to better understand whats going on here and once I do I’ll probably make a follow-up post and then edit in a reference to that here.</p>
+
+<p>Moving past the <code class="language-plaintext highlighter-rouge">Cow</code> complexities, what we have stored in the <code class="language-plaintext highlighter-rouge">Sprite</code> component are essentially five pieces of data that describe the specific sprite the component is referring to. The <code class="language-plaintext highlighter-rouge">spritesheet_dir</code> contains the filename of the spritesheet to use, and then the subsequent offset variables refer to the coordinate of the top left pixel of the desired sprite. From that, the width/height variables are pretty obvious in function - they are the width and the height of the given sprite in the spritesheet.</p>
+
+<p>Now that we have an <code class="language-plaintext highlighter-rouge">AssetHandler</code> struct that contains all the SpriteBatches, and a <code class="language-plaintext highlighter-rouge">Sprite</code> component that can attach to an entity and specify both it’s spritesheet and it’s sprite. With these two data structures, we can move onto another important piece of the puzzle - Sprite Culling!</p>
+
+<h2 id="sprite-culling">Sprite Culling</h2>
+
+<p>Thanks to specs, sprite culling isn’t actually terribly difficult. On a high-level, before we run the render system, we can iterate through the objects in the scene and check if they are within the camera’s view frustum. Oh. A Camera. Right…we need a Camera before we can actually cull anything! The camera is primarily composed of two concepts, a <code class="language-plaintext highlighter-rouge">Camera</code> tag-component, and an <code class="language-plaintext highlighter-rouge">ActiveCamera</code> resource that stores the entity currently being used as the camera:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// resources/active_camera.rs</span>
+
+<span class="k">pub</span> <span class="k">struct</span> <span class="n">ActiveCamera</span> <span class="p">{</span>
+    <span class="k">pub</span> <span class="n">entity</span> <span class="p">:</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nn">specs</span><span class="p">::</span><span class="n">Entity</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>This is really all there is to the Camera! Since we know <em>which</em> entity is the camera, we can just grab it’s transform and calculate the appropriate matrices to convert from world-coordinates into screen-coordinates. However, that isn’t necessary for sprite culling, so we will come back to that later. Now that we have a camera, we can do a really basic point-inside-rect check to determine if an object is culled - since if any object’s position is outside the camera’s view rectangle, that object can be culled and thus not rendered. To accomplish this, I created a <code class="language-plaintext highlighter-rouge">Culled</code> tag-component which is attached inside the <code class="language-plaintext highlighter-rouge">CullingSystem</code>. Let’s take a peek at the implementation for the <code class="language-plaintext highlighter-rouge">CullingSystem</code>:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// systems/culling_system.rs</span>
+
+<span class="k">impl</span><span class="o">&lt;</span><span class="nv">'s</span><span class="o">&gt;</span> <span class="n">System</span><span class="o">&lt;</span><span class="nv">'s</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">CullingSystem</span> <span class="p">{</span>
+    <span class="k">type</span> <span class="n">SystemData</span> <span class="o">=</span> <span class="p">(</span><span class="n">Entities</span><span class="o">&lt;</span><span class="nv">'s</span><span class="o">&gt;</span><span class="p">,</span>
+                       <span class="n">Read</span><span class="o">&lt;</span><span class="nv">'s</span><span class="p">,</span> <span class="n">ActiveCamera</span><span class="o">&gt;</span><span class="p">,</span>
+                       <span class="n">Read</span><span class="o">&lt;</span><span class="nv">'s</span><span class="p">,</span> <span class="n">ScreenDimensions</span><span class="o">&gt;</span><span class="p">,</span>
+                       <span class="n">ReadStorage</span><span class="o">&lt;</span><span class="nv">'s</span><span class="p">,</span>  <span class="nn">components</span><span class="p">::</span><span class="n">Transform</span><span class="o">&gt;</span><span class="p">,</span>
+                       <span class="n">WriteStorage</span><span class="o">&lt;</span><span class="nv">'s</span><span class="p">,</span> <span class="nn">components</span><span class="p">::</span><span class="n">Culled</span><span class="o">&gt;</span><span class="p">);</span>
+
+    <span class="k">fn</span> <span class="nf">run</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">active_camera</span><span class="p">,</span> <span class="n">screen_size</span><span class="p">,</span> <span class="n">transforms</span><span class="p">,</span> <span class="k">mut</span> <span class="n">culled_ents</span><span class="p">)</span> <span class="p">:</span> <span class="nn">Self</span><span class="p">::</span><span class="n">SystemData</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="c">// Get the ActiveCamera's View Rect</span>
+        <span class="k">let</span> <span class="n">camera_entity</span>    <span class="o">=</span> <span class="n">active_camera</span><span class="py">.entity</span><span class="nf">.unwrap</span><span class="p">();</span>
+        <span class="k">let</span> <span class="n">camera_transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="nf">.get</span><span class="p">(</span><span class="n">camera_entity</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
+        <span class="k">let</span> <span class="n">camera_rect</span>      <span class="o">=</span> <span class="n">camera_transform</span><span class="nf">.get_rect_from_point</span><span class="p">(</span><span class="nn">math</span><span class="p">::</span><span class="nn">Point2</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">screen_size</span><span class="py">.x</span><span class="p">,</span> <span class="n">screen_size</span><span class="py">.y</span><span class="p">));</span>
+
+        <span class="c">// Cull all Entities that whose Position is Not Inside the Camera's View Rect</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span> <span class="nf">in</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">entities</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">transforms</span><span class="p">)</span><span class="nf">.join</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">camera_rect</span><span class="nf">.contains</span><span class="p">(</span><span class="n">transform</span><span class="py">.position</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">culled_ents</span><span class="nf">.remove</span><span class="p">(</span><span class="n">entity</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">culled_ents</span><span class="nf">.insert</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="nn">components</span><span class="p">::</span><span class="n">Culled</span> <span class="p">{})</span><span class="nf">.expect</span><span class="p">(</span><span class="s">"Could not add 'Culled' Tag"</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Due to some of the needed boilerplate code for a specs <code class="language-plaintext highlighter-rouge">System</code> it looks a bit more complicated then it really is. However, I did want to note that I also needed to create a <code class="language-plaintext highlighter-rouge">ScreenDimensions</code> resource that can be used within a system to get the current size of the screen. I do feel like this is a bit clunky, but I couldn’t see another way without adding to the complexity of the <code class="language-plaintext highlighter-rouge">ActiveCamera</code> resource, but that may be an avenue I prototype in sandbox should I feel it necessary. Back to the <code class="language-plaintext highlighter-rouge">CullingSystem</code> – All the primary logic can be found inside the <code class="language-plaintext highlighter-rouge">run(...)</code> function. We simply grab the camera from the <code class="language-plaintext highlighter-rouge">ActiveCamera</code>, compute it’s bounding box, and then iterate through all entities and checking if they are within the camea’s view rect. If they aren’t within view, I simply attach the <code class="language-plaintext highlighter-rouge">Culled</code> tag and if they are withing view, I remove it. With all the entities appropriately tagged for culling, we can now properly implement a rendering system!</p>
+
+<h2 id="the-render-system">The Render System</h2>
+
+<p>Getting the a render system implemented the way I wanted was a bit tricky! I originally was hoping to have rendering be a proper specs system, but quickly realized that wouldn’t be possible without having the system store a reference to the ggez <code class="language-plaintext highlighter-rouge">Context</code> and I’m not yet comfortable enough with Rust’s borrow checker to understand how it wants me to store a reference inside a struct. As a result, I decided to turn the rendering system into what I’ve dubbed a “pseudosystem” which just means I wrote ecs logic inside a non-specs system and then call it’s update manually every frame which in this case, is specifically every <em>draw</em> frame. Here’s what the <code class="language-plaintext highlighter-rouge">RenderSystem</code> looks like:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// systems/render_system.rs</span>
+
+<span class="c">// Renders the Current Scene</span>
+<span class="k">pub</span> <span class="k">struct</span> <span class="n">RenderSystem</span> <span class="p">{}</span>
+
+<span class="k">impl</span> <span class="n">RenderSystem</span> <span class="p">{</span>
+    <span class="k">pub</span> <span class="k">fn</span> <span class="nf">draw</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">ctx</span> <span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="nn">ggez</span><span class="p">::</span><span class="n">Context</span><span class="p">,</span> <span class="n">world</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">World</span><span class="p">)</span> <span class="p">{</span>
+        
+        <span class="nn">graphics</span><span class="p">::</span><span class="nf">clear</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span><span class="nf">.into</span><span class="p">());</span>
+
+        <span class="k">let</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="o">=</span> <span class="nn">graphics</span><span class="p">::</span><span class="nf">drawable_size</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+
+        <span class="k">let</span> <span class="n">sprites</span>           <span class="o">=</span> <span class="n">world</span><span class="py">.read_storage</span><span class="p">::</span><span class="o">&lt;</span><span class="nn">crate</span><span class="p">::</span><span class="nn">components</span><span class="p">::</span><span class="n">Sprite</span><span class="o">&gt;</span><span class="p">();</span>
+        <span class="k">let</span> <span class="n">transforms</span>        <span class="o">=</span> <span class="n">world</span><span class="py">.read_storage</span><span class="p">::</span><span class="o">&lt;</span><span class="nn">crate</span><span class="p">::</span><span class="nn">components</span><span class="p">::</span><span class="n">Transform</span><span class="o">&gt;</span><span class="p">();</span> 
+        <span class="k">let</span> <span class="n">culled_ents</span>       <span class="o">=</span> <span class="n">world</span><span class="py">.read_storage</span><span class="p">::</span><span class="o">&lt;</span><span class="nn">crate</span><span class="p">::</span><span class="nn">components</span><span class="p">::</span><span class="n">Culled</span><span class="o">&gt;</span><span class="p">();</span>
+
+        <span class="k">let</span> <span class="n">camera</span>            <span class="o">=</span> <span class="n">world</span><span class="py">.read_resource</span><span class="p">::</span><span class="o">&lt;</span><span class="nn">crate</span><span class="p">::</span><span class="nn">resources</span><span class="p">::</span><span class="n">ActiveCamera</span><span class="o">&gt;</span><span class="p">()</span><span class="py">.entity</span><span class="p">;</span>
+        <span class="k">let</span> <span class="n">camera_transform</span>  <span class="o">=</span> <span class="n">transforms</span><span class="nf">.get</span><span class="p">(</span><span class="n">camera</span><span class="nf">.unwrap</span><span class="p">())</span><span class="nf">.unwrap</span><span class="p">();</span>
+
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">asset_handler</span> <span class="o">=</span> <span class="n">world</span><span class="py">.write_resource</span><span class="p">::</span><span class="o">&lt;</span><span class="nn">crate</span><span class="p">::</span><span class="n">AssetHandler</span><span class="o">&gt;</span><span class="p">();</span>
+
+        <span class="c">// Add All Visible Sprites to the Batch</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">sprite</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="mi">_</span><span class="p">)</span> <span class="nf">in</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">sprites</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">transforms</span><span class="p">,</span> <span class="o">!&amp;</span><span class="n">culled_ents</span><span class="p">)</span><span class="nf">.join</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="k">let</span> <span class="n">spritesheet</span> <span class="o">=</span> <span class="n">asset_handler</span><span class="nf">.get_asset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sprite</span><span class="py">.spritesheet_dir</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
+
+            <span class="k">let</span> <span class="n">rect</span> <span class="o">=</span> <span class="n">spritesheet</span><span class="nf">.clone</span><span class="p">()</span><span class="nf">.into_inner</span><span class="p">()</span><span class="nf">.dimensions</span><span class="p">();</span>
+
+            <span class="k">let</span> <span class="n">screen_pos</span> <span class="o">=</span> <span class="nn">camera_utils</span><span class="p">::</span><span class="nf">world_to_screen</span><span class="p">(</span><span class="o">&amp;</span><span class="n">camera_transform</span><span class="p">,</span><span class="nn">math</span><span class="p">::</span><span class="nn">Point2</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>  
+                             <span class="o">*</span> <span class="nn">math</span><span class="p">::</span><span class="nn">Point3</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">transform</span><span class="py">.position.x</span><span class="p">,</span> <span class="n">transform</span><span class="py">.position.y</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+
+            <span class="c">// Creates the Draw Params that selects the image from the SpriteSheet and Scales it Appropriately</span>
+            <span class="k">let</span> <span class="n">draw_params</span> <span class="o">=</span> <span class="nn">graphics</span><span class="p">::</span><span class="nn">DrawParam</span><span class="p">::</span><span class="nf">new</span><span class="p">()</span>
+                <span class="nf">.src</span><span class="p">(</span><span class="nn">graphics</span><span class="p">::</span><span class="nn">Rect</span><span class="p">::</span><span class="nf">fraction</span><span class="p">(</span><span class="n">sprite</span><span class="py">.x_offset</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">sprite</span><span class="py">.y_offset</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">sprite</span><span class="py">.width</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">sprite</span><span class="py">.height</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rect</span><span class="p">))</span>
+                <span class="nf">.offset</span><span class="p">(</span><span class="nn">math</span><span class="p">::</span><span class="nn">Point2</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+                <span class="nf">.scale</span><span class="p">(</span><span class="nn">math</span><span class="p">::</span><span class="nn">Vector2</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+                <span class="nf">.dest</span><span class="p">(</span><span class="nn">math</span><span class="p">::</span><span class="nn">Point2</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">screen_pos</span><span class="py">.x</span><span class="p">,</span> <span class="n">screen_pos</span><span class="py">.y</span><span class="p">));</span>
+
+            <span class="n">spritesheet</span><span class="nf">.add</span><span class="p">(</span><span class="n">draw_params</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="c">// Draw the Batch</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="mi">_</span> <span class="p">,</span> <span class="n">spritesheet</span><span class="p">)</span> <span class="n">in</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">asset_handler</span><span class="py">.asset_list</span> <span class="p">{</span>
+            <span class="nn">graphics</span><span class="p">::</span><span class="nf">draw</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">spritesheet</span><span class="p">,</span> <span class="nn">graphics</span><span class="p">::</span><span class="nn">DrawParam</span><span class="p">::</span><span class="nf">new</span><span class="p">())</span><span class="nf">.expect</span><span class="p">(</span><span class="s">"Failed to load Image!"</span><span class="p">);</span>
+            <span class="n">spritesheet</span><span class="nf">.clear</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="nn">graphics</span><span class="p">::</span><span class="nf">present</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span><span class="nf">.expect</span><span class="p">(</span><span class="s">"Failed to present!"</span><span class="p">);</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Woah! That’s the largest code snippet yet! Once again, this might be a little deciving, as it’s actually pretty straightforward! The first few lines of the <code class="language-plaintext highlighter-rouge">draw()</code> function are where I request the appropriate component <code class="language-plaintext highlighter-rouge">Storage</code> from the specs <code class="language-plaintext highlighter-rouge">World</code>, as well as any resources I need – such as the <code class="language-plaintext highlighter-rouge">ActiveCamera</code> and <code class="language-plaintext highlighter-rouge">AssetHandler</code>. Then, once I have all the appropriate tools I need, I just go right ahead and perform a <code class="language-plaintext highlighter-rouge">join()</code> operation on all the entities that <em>have</em> <code class="language-plaintext highlighter-rouge">Sprite</code> and <code class="language-plaintext highlighter-rouge">Transform</code> components but <em>not</em> a <code class="language-plaintext highlighter-rouge">Culled</code> component attached. So as long as I call the <code class="language-plaintext highlighter-rouge">RenderSystem</code> after I call the <code class="language-plaintext highlighter-rouge">CullingSystem</code>, all of the sprites that aren’t visible by the camera will get culled since they have a <code class="language-plaintext highlighter-rouge">Culled</code> component attached - neat! It’s features like these that have made me really enjoy working with specs and designing for the Entity-Component System architecture.</p>
+
+<p>This <code class="language-plaintext highlighter-rouge">join()</code> loop is where the bulk of the rendering occurs, but it’s still rather trivial. All I need to do is grab the entity’s spritesheet name from the sprite component, pass it to the <code class="language-plaintext highlighter-rouge">AssetHandler</code> to grab the appropriate <code class="language-plaintext highlighter-rouge">SpriteBatch</code> configure the <code class="language-plaintext highlighter-rouge">DrawParams</code> for the current entity, and then add it to the <code class="language-plaintext highlighter-rouge">SpriteBatch</code>! Unlike for the <code class="language-plaintext highlighter-rouge">CullingSystem</code>, however, this time we do need to perform some coordinate conversions. It’s fairly simply so I won’t go into the details, but if your curious as to how I got those working - you can find the implementations <a href="https://github.com/abrigante1/boundless/blob/production/src/utils/camera_utils.rs">here</a>.</p>
+
+<p>The final <code class="language-plaintext highlighter-rouge">for</code> loop is where the actual <code class="language-plaintext highlighter-rouge">SpriteBatch</code> draw call is. This loops though the <code class="language-plaintext highlighter-rouge">AssetHandler</code>’s assets, and using Rust’s nifty tuple destructuring, I can directly grab the <code class="language-plaintext highlighter-rouge">SpriteBatch</code> from the list and draw the batch in one draw call. This results in us doing only a single draw call per spritesheet, which is pretty awesome. Right after the loop, you simply call the present function with the provided <code class="language-plaintext highlighter-rouge">Context</code> and voila - things are rendering!</p>
+
+<p><img src="/assets/boundless/images/stp-rendering.png" alt="Image" /></p>
+
+<p>And that’s a wrap! With our rendering system done, up next I’ll be porting the TileMap data structure over into production. I have a few ideas on how I want to go about doing this, and I’m pretty excited for how it will turn out. See you then!</p>
+:ET

@@ -2570,6 +2570,8 @@ body, html, .root, .layout--page { height: 100%; }
 
 .page__main--immersive .hero__content { padding-top: 5rem; }
 
+.center { text-align: center !important; }
+
 .article__sharing { margin: 1.5rem 0; }
 
 .article__section-navigator { padding-top: 1rem; margin: 1.5rem 0 1rem 0; word-wrap: break-word; border: 0 solid #e6e6e6; border-top-width: 4px; }
