@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://www.abrigante.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.abrigante.com/" rel="alternate" type="text/html" /><updated>2020-06-01T22:29:00-07:00</updated><id>https://www.abrigante.com/feed.xml</id><title type="html">Anthony Brigante</title><subtitle>A soon-to-be Website for all my work!
+</subtitle><author><name>Anthony Brigante</name><email>anthonypbrigante@gmail..com</email></author><entry><title type="html">Welcome to the thing!</title><link href="https://www.abrigante.com/post/2020/05/06/A-Brand-New-Blog.html" rel="alternate" type="text/html" title="Welcome to the thing!" /><published>2020-05-06T00:00:00-07:00</published><updated>2020-05-06T00:00:00-07:00</updated><id>https://www.abrigante.com/post/2020/05/06/A-Brand-New-Blog</id><content type="html" xml:base="https://www.abrigante.com/post/2020/05/06/A-Brand-New-Blog.html">&lt;p&gt;Hey - Welcome to my new website!&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;If you’re reading this, it means I got everything up and running - woohoo!&lt;/p&gt;
+
+&lt;p&gt;This website is going to be where I post devlogs on projects, host my resume, as well as my portfolio. 
+I previously had this site hosted on Squarespace, but it didn’t provide me with the toolchain I was hoping it would, so I switched to GitHub Pages. 
+As a result, this site is built using Jekyll alongside a modified version of the &lt;a href=&quot;https://tianqi.name/jekyll-TeXt-theme/&quot;&gt;TeXT&lt;/a&gt; Jekyll theme.&lt;/p&gt;
+
+&lt;p&gt;I’m quite excited to see where this goes next, as now I have some pretty sweet tools on my hand thanks to Markdown and Jekyll!&lt;/p&gt;
+
+&lt;p&gt;Here are some of the things I can do!&lt;/p&gt;
+
+&lt;h2 id=&quot;examples&quot;&gt;Examples&lt;/h2&gt;
+
+&lt;p&gt;Via Headers, the site will automatically generate a Table of Contents that can be seen in the aside to the right – err, on desktop at least, hoping to support mobile soon with via a sidebar!&lt;/p&gt;
+
+&lt;h3 id=&quot;inline-code&quot;&gt;Inline Code&lt;/h3&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello, Internet!&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;inline-math&quot;&gt;Inline Math&lt;/h3&gt;
+
+\[X_k = \sum_{n=0}^{N-1} {x_n e^{ -{ {2 \pi i} \over N} k n } }\]
+
+&lt;h3 id=&quot;inline-graph&quot;&gt;Inline Graph&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;graph LR
+	Input[X] --&amp;gt;g{g}
+  g --&amp;gt; sum(+)
+  g --&amp;gt; delay[Z^-1]
+  delay --&amp;gt; sum
+  sum --&amp;gt; Output[Y]					
+&lt;/code&gt;&lt;/pre&gt;</content><author><name>Anthony Brigante</name><email>anthonypbrigante@gmail..com</email></author><category term="post" /><summary type="html">Hey - Welcome to my new website!</summary></entry></feed>
