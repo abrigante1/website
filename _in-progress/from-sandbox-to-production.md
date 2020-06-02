@@ -166,7 +166,7 @@ impl RenderSystem {
     pub fn draw(&mut self, ctx : &mut ggez::Context, world: &World) {
         
         graphics::clear(ctx, [0.1, 0.2, 0.3, 1.0].into());
-
+ 
         let (w, h) = graphics::drawable_size(ctx);
 
         let sprites           = world.read_storage::<crate::components::Sprite>();
