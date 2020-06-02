@@ -2,7 +2,7 @@
 title: From Sandbox to Production
 ---
 
-Welcome back! As mentioned in the previous post, this time around I'll be doing a technical deep dive into the systems I've begin re-architecting for the first version of the production branch.<!--more--> I began this process by taking a look at all the features I currently had implemented and then creating a plan for which features I wanted to tackle first. 
+Welcome back! As mentioned in the previous post, this time around I'll be doing a technical deep dive into the systems that I will be re-architecting for the first version of the production branch.<!--more--> I began this process by taking a look at all the features I had implemented in sandbox and then created a plan for which features I wanted to tackle first. 
 
 Here's the original list of Sandbox Features: 
 
@@ -21,7 +21,7 @@ Here's the original list of Sandbox Features:
      - Tiles stored in a TileMap 
      - Can click on a tile to see it's data, or delete it.
 
-I then took this list, created more explicit systems, and then created a flowchart to plan out which features I'll implement first. 
+And here's the flowchart plan: 
 
 ```mermaid
 graph TD
@@ -35,7 +35,7 @@ graph TD
 
 # Rendering
 
-The core goal I had in mind for the rendering pipeline was for the system to be fairly modular and require as little hand coding as possible when I add in a new sprite. I also wanted to make sure that the rendering system was built with fact that Boundless will have a lot of tiles rendering on the screen at a given moment in time. With these two goals in mind, I decided that I wanted to make use of ggez's `SpriteBatch` feature. This allows me to queue up tiles using the same sprite into a batch, and then render the entire batch in the same draw call. To take this a step further, I decided that rather then use a sprite per tile, I could use spritesheets for like-entities resulting in the ability to batch draw all sprites that use the same _sprite sheet_ rather then just the same _sprite_. However, before we get ahead of ourselves, the first thing we need to create would be some method of storing an entities positional data...
+The core goal I had in mind for the rendering pipeline was for the system to be fairly modular and require as little hand coding as possible when adding in additional sprites. I also wanted to make sure that the rendering system was built for rendering a lot of tiles on the screen at a given moment in time. With these two goals in mind, I decided that I wanted to make use of ggez's `SpriteBatch` feature. This allows me to queue up tiles using the same sprite into a batch, and then render the entire batch in the same draw call. To take this a step further, I decided that rather then use a sprite per tile, I could use spritesheets for similar entities resulting in the ability to batch together all sprites that use the same _sprite sheet_ rather then just the same _sprite_. However, before we get ahead of ourselves, the first thing we need to create would be some method of storing an entities positional data...
 
 ## Transforms
 
@@ -66,7 +66,7 @@ pub struct AssetHandler {
 }
 ```
 
-Nothing too complex! I did implement a few [helper functions](https://github.com/abrigante1/boundless/blob/30747bdfb16fcf069d0819bf3b453dd41b638865/src/resources/asset_handler.rs#L14) onto the `AssetHandler`, but those are mainly for error checking and don't do anything non-trival. What the `AssetHandler` allows me to do, is have a single structure that contains the the `SpriteBatch` for a given spritesheet which is hashed under a string key that's nothing more then the file name of the spritesheet. Thus, now I can easily grab any of the loaded spritesheets, and not worry about having a bunch of references laying around inside the `Sprite` component. Before we get to that, let's take a quick look at how we initalize the `AssetHandler`: 
+Nothing too complex! I did implement a few [helper functions](https://github.com/abrigante1/boundless/blob/30747bdfb16fcf069d0819bf3b453dd41b638865/src/resources/asset_handler.rs#L14) onto the `AssetHandler`, but those are mainly for error checking and don't do anything non-trival. What the `AssetHandler` allows me to do, is have a single structure that contains the the `SpriteBatch` for a given spritesheet which is hashed under a string key that's nothing more then the file name of the spritesheet. Now, I can easily grab any of the loaded spritesheets and not worry about having a bunch of references laying around inside the `Sprite` component. Before we get to that, let's take a quick look at how we initalize the `AssetHandler`: 
 
 ```rust
 // main.rs -- line: 156
@@ -80,7 +80,7 @@ fn load_assets( ctx : &mut Context, asset_handler : &mut AssetHandler ) {
 }
 ```
 
-Tada! It's actually quite straightforward and adding an additional asset only requires a line of code. A quite note - the `Context` data structure is an extremely important structure created by ggez. You need a reference to it to access a large number of ggez's tools. In this case, it's used to load the `Image` from the file: 
+Tada! It's actually quite straightforward and adding an additional asset only requires a line of code. The `Context` data structure use see in the function parameter arguments is an extremely important structure created by ggez. You need a reference to it to access a large number of ggez's tools. In this case, it's used to load the `Image` from a file: 
 
 ```rust
 // resources/asset_handler.rs -- line: 30
@@ -88,7 +88,7 @@ Tada! It's actually quite straightforward and adding an additional asset only re
 let image = graphics::Image::new(ctx, asset_name).unwrap();
 ```
 
-The `Image` is then simply passed to a constructer for a `SpriteBatch` which is then stored in the `AssetHandler`. The next important data structure is the `Sprite` component -- this is a specs `Component` that stores a number of useful pieces of data that detail what spritesheet the entity uses and which individual sprite in the spritesheet is being requested. 
+The created `Image` is then simply passed to a constructor for a `SpriteBatch` which is then stored in the `AssetHandler`. The next important data structure is the `Sprite` component -- this is a specs `Component` that stores a number of useful pieces of data that detail what spritesheet the entity uses and which individual sprite in the spritesheet is being requested. 
 
 ```rust
 // components.rs -- line: 8
@@ -101,7 +101,7 @@ pub struct Sprite {
 }
 ```
 
-If you aren't very familiar with rust, you might be very confused at what type a `std::borrow::Cow<'static, str>` is, and if I'm being quite honest - I'm not exactly sure either! Rust handles strings very differently then C++ does, and it's been taking me a bit to get my head completely wrapped around how they exactly work. In turn, when trying to figure out how to store a string on a struct - I found out the `Cow` type via how Amethyst implements it's `Named` component. From what I understand at the moment, `Cow` stands for "Copy on Write" and essentially will always perform a string copy rather then a string move. I plan on spending a bit more time brushing up on strings in Rust to better understand whats going on here and once I do I'll probably make a follow-up post and then edit in a reference to that here. 
+If you aren't very familiar with Rust, you might be very confused at what type a `std::borrow::Cow<'static, str>` is, and if I'm being quite honest - I'm not exactly sure either! Rust handles strings very differently then C++ does, and it's been taking me a bit to get my head completely wrapped around how exactly they work. In turn, when trying to figure out how to store a string on a struct - I found the `Cow` type via how Amethyst implements it's `Named` component. From what I understand at the moment, `Cow` stands for "Copy on Write" and essentially will always perform a string copy rather then a string move on write to the variable. I plan on spending a bit more time brushing up on strings in Rust to better understand whats going on here and once I do I'll probably make a follow-up post and then edit in a reference to that here. 
 
 Moving past the `Cow` complexities, what we have stored in the `Sprite` component are essentially five pieces of data that describe the specific sprite the component is referring to. The `spritesheet_dir` contains the filename of the spritesheet to use, and then the subsequent offset variables refer to the coordinate of the top left pixel of the desired sprite. From that, the width/height variables are pretty obvious in function - they are the width and the height of the given sprite in the spritesheet.  
 
