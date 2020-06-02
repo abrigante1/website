@@ -3,7 +3,7 @@ title: From Sandbox to Production
 show_edit_on_github: false
 show_subscribe: false
 license: false
-permalink: /drafts/from-sandbox-to-production.html
+permalink: /in-progress/from-sandbox-to-production.html
 ---
 
 Welcome back! As mentioned in the previous post, this time around I'll be doing a technical deep dive into the systems I've begin re-architecting for the first version of the production branch.<!--more--> I began this process by taking a look at all the features I currently had implemented and then creating a plan for which features I wanted to tackle first. 

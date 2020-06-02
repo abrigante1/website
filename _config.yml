@@ -216,6 +216,8 @@ collections:
     output: true
   team-projects:
     output: true
+  in-progress:
+    output: true
 
 defaults:
   - scope:
@@ -229,12 +231,9 @@ defaults:
     values:
       layout: article
       sharing: true
-      license: true
       category: post
       aside:
         toc: true
-      show_edit_on_github: true
-      show_subscribe: true
       pageview: true
   ## samples
   - scope:
@@ -251,6 +250,16 @@ defaults:
       layout: project
       nav_key: portfolio
       show_date: false
+  - scope:
+      path: ""
+      type: in-progress
+    values:
+      layout: article
+      sharing: true
+      category: post
+      aside:
+        toc: true
+      pageview: true
 
 
 ## => Plugins
