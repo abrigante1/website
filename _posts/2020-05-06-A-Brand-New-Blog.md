@@ -2,9 +2,7 @@
 title: Welcome to the thing!
 show_edit_on_github: false
 show_subscribe: false
-license: false
 ---
-# Welcome!
 
 Hey - Welcome to my new website!
 

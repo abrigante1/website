@@ -163,3 +163,7 @@ html,
     padding-top: map-get($layout, header-height);
   }
 }
+
+.center {
+   text-align: center !important;
+}
