@@ -19,7 +19,7 @@ Here are a few charities to donate to:
 
 [Black Lives Matter](https://secure.actblue.com/donate/ms_blm_homepage_2019)
 [George Floyd Memorial Fund](https://www.gofundme.com/f/georgefloyd)
-[(Campaign Zero](https://www.joincampaignzero.org/)
+[Campaign Zero](https://www.joincampaignzero.org/)
 
 # Background
 
