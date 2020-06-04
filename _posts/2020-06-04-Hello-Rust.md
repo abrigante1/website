@@ -1,6 +1,7 @@
 ---
 title: Hello, Rust
 permalink: /in-progress/hello-rust.html
+tags: boundless, devlog, rust
 ---
 For about a year, I've been watching Rust from the sidelines with extreme curiousity - eager to find the time to get my hands dirty and learn the language. Now that -- thanks to a global pandemic -- I'm armed with way more free time then I know what to do with, I'll be making a devlog on my experience learning and making a game in Rust.
 
