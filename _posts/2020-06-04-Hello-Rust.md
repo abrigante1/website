@@ -17,9 +17,9 @@ I have already donated to a number of bail funds across America and I encourage 
 
 Here are a few charities to donate to: 
 
-https://secure.actblue.com/donate/ms_blm_homepage_2019
-https://www.gofundme.com/f/georgefloyd
-https://www.joincampaignzero.org/
+(Black Lives Matter)[https://secure.actblue.com/donate/ms_blm_homepage_2019]
+(George Floyd Memorial Fund)[https://www.gofundme.com/f/georgefloyd]
+(Campaign Zero)[https://www.joincampaignzero.org/]
 
 # Background
 
