@@ -6,6 +6,22 @@ For about a year, I've been watching Rust from the sidelines with extreme curiou
 
 <!--more-->
 
+# Foreword
+
+Today is June 4th, 2020. Last Monday, George Floyd, a Black African-American man, was murdered in broad daylight by the police. His murderer was not arrested until four days later. Over the course of the last week, Americans came out in hoards to protest against this obvious act of systemic racism and police brutality towards African-Americans. In response to these protests, we witnessed police across the country retaliate with unprovocated acts of police brutality and violence. There is zero grounds for this to ever be acceptable and is fundementally unconstitutional. We must fight back against these acts of hatred and continue to further the fight against systemic racism, and police brutality. 
+
+Black Lives Matter. Period. 
+
+I have already donated to a number of bail funds across America and I encourage you to do the same, to educate your peers, and speak out against these injustices. 
+
+Here are a few charities to donate to: 
+
+https://secure.actblue.com/donate/ms_blm_homepage_2019
+https://www.gofundme.com/f/georgefloyd
+https://www.joincampaignzero.org/
+
+# Background
+
 To provide some context on my own background, I'm entering my fifth year at DigiPen Institute of Technology where I'm majoring in Computer Science with a focus on digital signal processing and audio programming. During the course of my college career at DigiPen, I've had the opportunity to work on all sorts of projects, ranging from creating a completely custom game engine to a granular synthesizer. I primarily work in C++ but have some experience with C and C#, and have been wanting to add Rust to the list of languages I know.  
 
 With that in mind - I decided I was going to dive in head first and learn Rust by creating *Boundless*, a 2D Survival Sandbox Game heavily inspiried by one of my all time favorites - Terraria, and thus this devlog was born! I plan on trying to write posts at least every other week, documenting the systems I implemented, what I'm enjoying and not enjoying about Rust, as well as just my over all experience with using the language for game development. Before we begin, I wanted to note that in an attempt to save your eyes from the horror that is my programmer art, my close friend and outstanding artist, Kyle Erickson, will be providing me with most of the assets that will be used for the game. If you want to see more of his awesome work, please give him a follow on Instagram at [@samurai.sunrise](https://www.instagram.com/sunrise.samurai/).
