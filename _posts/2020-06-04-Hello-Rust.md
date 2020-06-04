@@ -1,6 +1,5 @@
 ---
 title: Hello, Rust
-permalink: /in-progress/hello-rust.html
 tags: boundless, devlog, rust
 ---
 For about a year, I've been watching Rust from the sidelines with extreme curiousity - eager to find the time to get my hands dirty and learn the language. Now that -- thanks to a global pandemic -- I'm armed with way more free time then I know what to do with, I'll be making a devlog on my experience learning and making a game in Rust.
@@ -18,7 +17,9 @@ I have already donated to a number of bail funds across America and I encourage 
 Here are a few charities to donate to: 
 
 [Black Lives Matter](https://secure.actblue.com/donate/ms_blm_homepage_2019)
+
 [George Floyd Memorial Fund](https://www.gofundme.com/f/georgefloyd)
+
 [Campaign Zero](https://www.joincampaignzero.org/)
 
 # Background
