@@ -1,5 +1,95 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://www.abrigante.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.abrigante.com/" rel="alternate" type="text/html" /><updated>2020-06-01T22:53:53-07:00</updated><id>https://www.abrigante.com/feed.xml</id><title type="html">Anthony Brigante</title><subtitle>A soon-to-be Website for all my work!
-</subtitle><author><name>Anthony Brigante</name><email>anthonypbrigante@gmail..com</email></author><entry><title type="html">Welcome to the thing!</title><link href="https://www.abrigante.com/post/2020/05/06/A-Brand-New-Blog.html" rel="alternate" type="text/html" title="Welcome to the thing!" /><published>2020-05-06T00:00:00-07:00</published><updated>2020-05-06T00:00:00-07:00</updated><id>https://www.abrigante.com/post/2020/05/06/A-Brand-New-Blog</id><content type="html" xml:base="https://www.abrigante.com/post/2020/05/06/A-Brand-New-Blog.html">&lt;p&gt;Hey - Welcome to my new website!&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://www.abrigante.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.abrigante.com/" rel="alternate" type="text/html" /><updated>2020-06-04T13:15:20-07:00</updated><id>https://www.abrigante.com/feed.xml</id><title type="html">Anthony Brigante</title><subtitle>A soon-to-be Website for all my work!
+</subtitle><author><name>Anthony Brigante</name><email>anthonypbrigante@gmail..com</email></author><entry><title type="html">Hello, Rust</title><link href="https://www.abrigante.com/in-progress/hello-rust.html" rel="alternate" type="text/html" title="Hello, Rust" /><published>2020-06-04T00:00:00-07:00</published><updated>2020-06-04T00:00:00-07:00</updated><id>https://www.abrigante.com/in-progress/Hello-Rust</id><content type="html" xml:base="https://www.abrigante.com/in-progress/hello-rust.html">&lt;p&gt;For about a year, I’ve been watching Rust from the sidelines with extreme curiousity - eager to find the time to get my hands dirty and learn the language. Now that – thanks to a global pandemic – I’m armed with way more free time then I know what to do with, I’ll be making a devlog on my experience learning and making a game in Rust.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h1 id=&quot;foreword&quot;&gt;Foreword&lt;/h1&gt;
+
+&lt;p&gt;Today is June 4th, 2020. Last Monday, George Floyd, a Black African-American man, was murdered in broad daylight by the police. His murderer was not arrested until four days later. Over the course of the last week, Americans came out in hoards to protest against this obvious act of systemic racism and police brutality towards African-Americans. In response to these protests, we witnessed police across the country retaliate with unprovocated acts of police brutality and violence. There is zero grounds for this to ever be acceptable and is fundementally unconstitutional. We must fight back against these acts of hatred and continue to further the fight against systemic racism, and police brutality.&lt;/p&gt;
+
+&lt;p&gt;Black Lives Matter. Period.&lt;/p&gt;
+
+&lt;p&gt;I have already donated to a number of bail funds across America and I encourage you to do the same, to educate your peers, and speak out against these injustices.&lt;/p&gt;
+
+&lt;p&gt;Here are a few charities to donate to:&lt;/p&gt;
+
+&lt;p&gt;https://secure.actblue.com/donate/ms_blm_homepage_2019
+https://www.gofundme.com/f/georgefloyd
+https://www.joincampaignzero.org/&lt;/p&gt;
+
+&lt;h1 id=&quot;background&quot;&gt;Background&lt;/h1&gt;
+
+&lt;p&gt;To provide some context on my own background, I’m entering my fifth year at DigiPen Institute of Technology where I’m majoring in Computer Science with a focus on digital signal processing and audio programming. During the course of my college career at DigiPen, I’ve had the opportunity to work on all sorts of projects, ranging from creating a completely custom game engine to a granular synthesizer. I primarily work in C++ but have some experience with C and C#, and have been wanting to add Rust to the list of languages I know.&lt;/p&gt;
+
+&lt;p&gt;With that in mind - I decided I was going to dive in head first and learn Rust by creating &lt;em&gt;Boundless&lt;/em&gt;, a 2D Survival Sandbox Game heavily inspiried by one of my all time favorites - Terraria, and thus this devlog was born! I plan on trying to write posts at least every other week, documenting the systems I implemented, what I’m enjoying and not enjoying about Rust, as well as just my over all experience with using the language for game development. Before we begin, I wanted to note that in an attempt to save your eyes from the horror that is my programmer art, my close friend and outstanding artist, Kyle Erickson, will be providing me with most of the assets that will be used for the game. If you want to see more of his awesome work, please give him a follow on Instagram at &lt;a href=&quot;https://www.instagram.com/sunrise.samurai/&quot;&gt;@samurai.sunrise&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;source-code-and-git-workflow&quot;&gt;Source Code and Git Workflow&lt;/h1&gt;
+
+&lt;p&gt;All the code being used for the project can be found on Boundless’s GitHub repository &lt;a href=&quot;https://github.com/abrigante1/boundless&quot;&gt;here&lt;/a&gt;. Real quick, to explain the repository’s layout - I like to organize my work into three core branches:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Master&lt;/li&gt;
+  &lt;li&gt;Production&lt;/li&gt;
+  &lt;li&gt;Sandbox&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Master is used for a “completed” version of the project. This will contain no work-in-progress features, and is intended to host the most recent version of the project that can be downloaded, compiled, and run with zero issues. Production, will be where I am actively working on polishing and re-architecting a features that have already been prototyped. This branch will include partially implemented features, but will be as close to complete as possible. Lastly, sandbox is where I will be doing all my testing work and experiementation. It’s here where I will be trying out a potential implementation, and discovering what does and doesn’t work. This branch will essentially always be unstable and it’s explicit purpose is to act as a playground where I can try out new ideas, without risking the pollution of production. However, after this branch will usually be updated to include the most up-to-date version of production at a given moment. I heavily enjoy this workflow as it allows me to gain a better understanding of how a system needs to work with other systems &lt;em&gt;before&lt;/em&gt; I try to architect the feature. As a result, I am able to see the bigger picture much more clearly.&lt;/p&gt;
+
+&lt;p&gt;So with that our of the way…&lt;/p&gt;
+
+&lt;h1 id=&quot;the-tech-stack&quot;&gt;The Tech Stack&lt;/h1&gt;
+
+&lt;p&gt;For this project, I was pretty conflicted with how much raw custom engine work I wanted to do. While I heavily enjoy core engine development, I really wanted to get right into making a game so I initially decided to create this project using the Amethyst game engine framework. &lt;a href=&quot;https://amethyst.rs/&quot;&gt;Amethyst&lt;/a&gt; is a huge Rust game engine framework that provides you with a lot of the tools needed to get starting making a game. It can take care of audio, graphics, entity management via an entity-component system, and many other things.&lt;/p&gt;
+
+&lt;p&gt;However, if you have already taken a look Boundless’s GitHub repository, you may have noticed that it says “…making a 2D Sandbox Game with the GGEZ framework” and &lt;em&gt;not&lt;/em&gt; the Amethyst framework. Why’s that? Well - while Amethyst does offer a lot of very powerful tools, it also isn’t very well documented and felt extremely constraining. With every system I wanted to implement, it felt like I was fighting against Amethyst to get it to do what I wanted it to do, and I spent more time trying to figure out how Amyethest was support to work then I was spending time actually doing game development. As a result of this, I ended up framework-hopping a few times between Amethyst and the aforementioned GGEZ.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ggez.rs/&quot;&gt;GGEZ&lt;/a&gt; is another game engine framework, but has a completely different design philosophy. Rather then being an all-in-one toolbox providing everything you need to make a game, GGEZ gives you the basics and then lets you decide how to build on top of it. While this directly clashed with my initial desire to avoid doing too much core engine work, I eventually got tired of fighting Amethyst and decided that it was better to spend more time working on core engine features, then it was to dig through Amethyst’s source code trying to figure out how it wanted me to do a thing. As a result, I feel that for this project GGEZ is the better route to go.&lt;/p&gt;
+
+&lt;p&gt;I also really wanted to learn how a proper Entity-Component System (ECS), so on top of GGEZ, I also decided to use &lt;a href=&quot;https://specs.amethyst.rs/&quot;&gt;specs&lt;/a&gt; as the ECS for the game. For those that are unfamiliar with what an ECS is, specs has a great briefer that can be found &lt;a href=&quot;https://specs.amethyst.rs/docs/tutorials/01_intro.html&quot;&gt;here&lt;/a&gt;. An additional secret hidden motive for using an ECS in this project, was also to get comfortable with what’s currently the standard, so that I could hopefully one day try writing my own. So who knows – maybe after this series I’ll make one about writing a custom ECS :)&lt;/p&gt;
+
+&lt;h1 id=&quot;getting-up-to-speed&quot;&gt;Getting up to Speed&lt;/h1&gt;
+
+&lt;p&gt;Since this initial post is already getting quite long, I’ll briefly wrap up showing off what I currently have implemented in my sandbox, the source code of which can be seen &lt;a href=&quot;https://github.com/abrigante1/boundless/tree/v0.1&quot;&gt;here&lt;/a&gt;, as well as some quick notes on where I’ll be going next.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/boundless/gifs/sandbox_v0.1_bp-1.gif&quot; alt=&quot;Image&quot; /&gt;
+Note: The background sprite for game in this gif is by MadFireOn and can be found &lt;a href=&quot;https://swapnilrane24.itch.io/nature-background?download&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The above gif shows off the following features:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Rendering System
+    &lt;ul&gt;
+      &lt;li&gt;Sprite Sheets
+        &lt;ul&gt;
+          &lt;li&gt;Sprite Culling&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;God Camera Controls
+    &lt;ul&gt;
+      &lt;li&gt;Zoom&lt;/li&gt;
+      &lt;li&gt;Pan&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;World Generation
+    &lt;ul&gt;
+      &lt;li&gt;Basic Perlin-Noise Height Map&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Tile Interaction
+    &lt;ul&gt;
+      &lt;li&gt;Tiles stored in a TileMap&lt;/li&gt;
+      &lt;li&gt;Can click on a tile to see it’s data, or delete it.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;first-impressions&quot;&gt;First Impressions&lt;/h1&gt;
+
+&lt;p&gt;In the next blog post, I’ll be moving to more of a technical deep dive on each of the above systems, but rather then discussing the implementation currently seen in sandbox - I’ll be detailing my process of taking the prototype and converting it into a proper feature implementation. I’m quite excited to being this process, as now that I’ve begun to get more comfortable with Rust, I can really sit down and architect implementations that use the language to its advantage. On that note, my first impressions of Rust have been extremely positive. Coming from C++, there were a few things that took a bit of getting my head wrapped around, but after spending the last few weeks with it nearly all of those complaints have gone away. With so many powerful features built write into the language, such as tuples and destructing, on top of an extremely expressive syntax - I couldn’t help but fall in love with writing Rust code. That being said, while I wouldn’t say I’ve had to “fight the borrow checker” yet, I still don’t completely understand why or how it wants me to do certain things – though I expect that to go away as I gain more experience. The only “real” flaw I’ve found with the language thus far, is that the compiler feels a bit slower compared to what I’m used too, and thats on top of C++’s already slower compile times.&lt;/p&gt;
+
+&lt;p&gt;All-in-all, it’s been an absolute blast to work in this language and can’t wait to learn more about it’s feature set. See you in the next post!&lt;/p&gt;</content><author><name>Anthony Brigante</name><email>anthonypbrigante@gmail..com</email></author><category term="post" /><category term="boundless," /><category term="devlog," /><category term="rust" /><summary type="html">For about a year, I’ve been watching Rust from the sidelines with extreme curiousity - eager to find the time to get my hands dirty and learn the language. Now that – thanks to a global pandemic – I’m armed with way more free time then I know what to do with, I’ll be making a devlog on my experience learning and making a game in Rust.</summary></entry><entry><title type="html">Welcome to the thing!</title><link href="https://www.abrigante.com/post/2020/05/06/A-Brand-New-Blog.html" rel="alternate" type="text/html" title="Welcome to the thing!" /><published>2020-05-06T00:00:00-07:00</published><updated>2020-05-06T00:00:00-07:00</updated><id>https://www.abrigante.com/post/2020/05/06/A-Brand-New-Blog</id><content type="html" xml:base="https://www.abrigante.com/post/2020/05/06/A-Brand-New-Blog.html">&lt;p&gt;Hey - Welcome to my new website!&lt;/p&gt;
 
 &lt;!--more--&gt;
 
