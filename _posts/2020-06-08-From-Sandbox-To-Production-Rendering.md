@@ -1,5 +1,5 @@
 ---
-title: From Sandbox to Production
+title: From Sandbox to Production -- Rendering
 ---
 
 Welcome back! As mentioned in the previous post, this time around I'll be doing a technical deep dive into the systems that I will be re-architecting for the first version of the production branch.<!--more--> I began this process by taking a look at all the features I had implemented in sandbox and then created a plan for which features I wanted to tackle first. 
