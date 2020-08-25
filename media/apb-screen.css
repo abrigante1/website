@@ -25,6 +25,17 @@ time, mark, audio, video {
 	vertical-align: baseline;
 } */
 
+.tg  {border-collapse:collapse;border-spacing:0; margin: 0 auto}
+.tg td{border-style:solid;border-width:0px;font-size:14px;overflow:hidden;
+  padding:10px 20px;word-break:normal;}
+.tg th{border-style:solid;border-width:0px;font-size:14px;font-weight:normal;
+  overflow:hidden;padding:10px 20px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-u0o7{border-color:inherit;font-weight:bold;text-align:center;text-decoration:underline;vertical-align:top}
+.tg .tg-wp8o{border-color:#000000;text-align:center;vertical-align:top}
+.tg .tg-akbm{font-weight:bold;text-align:center;text-decoration:underline;vertical-align:top}
+.center-grid{align-items: center;}
+
 #resume {
 	--font-scalar: 1.0;
 }
@@ -54,6 +65,10 @@ q:before, q:after {
 } 
 
 /* end of reset */
+
+#resume .disabled {
+	visibility: hidden;
+}
 
 #resume .u-fontScalar {
 	font-size: calc(var(--font-scalar) * 100%)
