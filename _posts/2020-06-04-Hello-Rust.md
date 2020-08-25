@@ -8,7 +8,7 @@ For about a year, I've been watching Rust from the sidelines with extreme curiou
 
 # Foreword 
 
-Today is June 4th, 2020. Last Monday, George Floyd, a Black African-American man, was murdered in broad daylight by the police. His murderer was not arrested until four days later. Over the course of the last week, Americans came out in hoards to protest against this obvious act of systemic racism and police brutality towards African-Americans. In response to these protests, we witnessed police across the country retaliate with unprovoked acts of police brutality and violence. There is zero grounds for this to ever be acceptable and is fundementally unconstitutional. We must fight back against these acts of hatred and continue to further the fight against systemic racism, and police brutality. 
+Today is June 4th, 2020. Last Monday, George Floyd, a Black African-American man, was murdered in broad daylight by the police. His murderer was not arrested until four days later. Over the course of the last week, Americans came out in hoards to protest against this obvious act of systemic racism and police brutality towards BIPOC. In response to these protests, we witnessed police across the country retaliate with unprovoked acts of police brutality and violence. There is zero grounds for this to ever be acceptable and is fundementally unconstitutional. We must fight back against these acts of hatred and continue to further the fight against systemic racism, and police brutality. 
 
 Black Lives Matter. Period. 
 

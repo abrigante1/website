@@ -25,8 +25,19 @@ time, mark, audio, video {
 	vertical-align: baseline;
 } */
 
+.tg  {border-collapse:collapse;border-spacing:0; margin: 0 auto}
+.tg td{border-style:solid;border-width:0px;font-size:10px;overflow:hidden;
+  padding:2px 2px;word-break:normal;}
+.tg th{border-style:solid;border-width:0px;font-size:10px;font-weight:normal;
+  overflow:hidden;padding:2px 2px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-u0o7{border-color:inherit;font-weight:bold;text-align:center;text-decoration:underline;vertical-align:top}
+.tg .tg-wp8o{border-color:#000000;text-align:center;vertical-align:top}
+.tg .tg-akbm{font-weight:bold;text-align:center;text-decoration:underline;vertical-align:top}
+
 #resume {
 	--font-scalar: 0.8;
+	-webkit-print-color-adjust: exact;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -54,6 +65,11 @@ q:before, q:after {
 } 
 
 /* end of reset */
+
+#resume .disabled {
+	visibility: hidden;
+}
+
 #resume .u-fontScalar {
 	font-size: calc(var(--font-scalar) * 100%)
 }
@@ -131,15 +147,18 @@ q:before, q:after {
 	text-align: center;
 	font-size: calc(var(--font-scalar) * 3em);
 	line-height: calc(var(--font-scalar) * 1em);
-	margin-bottom: -0.2em;
-	padding: 0.5em;
+	margin-bottom: -0.5em;
+	padding: 1.0em;
 	margin-top: -0.5em;
+	background-color: #374458;
+	color: #ffffff;
 } 
 
 #resume .u-contactInfo
 {
 	font-size: calc(var(--font-scalar) * 90%);
-	color: #bc412b;
+	background-color: #2B343F;
+	color: #ffffff;
 }
 
 /* Section Headers */
@@ -214,3 +233,18 @@ q:before, q:after {
 #resume #address {
 	display: none;
 }
+
+@page  
+{ 
+    size: auto;   /* auto is the initial value */ 
+
+    /* this affects the margin in the printer settings */ 
+	margin-top: 7.5mm;  
+	margin-bottom: 7.5mm;
+} 
+
+#resume body  
+{ 
+    /* this affects the margin on the content before sending to printer */ 
+    margin: 0px;  
+} 

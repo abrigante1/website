@@ -28,41 +28,82 @@ DigiPen Institute of Technology
 
 ## Skills
 
-<div class="Grid Grid--gutters u-fontScalar">
-  <div class="Grid-cell Grid-cell--centerText">
-    <div class ="Grid-cell--cellHeader"> Programming Languages </div>
-    <ul>
-      <li> C++ </li>
-      <li> C </li>
-      <li> C# </li>
-    </ul>
+<div class="Grid Grid--gutters u-fontScalar center-grid">
+  <div class="Grid-cell Grid-cell--centerText center-grid">
+    <table class="tg">
+    <thead>
+      <tr>
+        <th class="tg-u0o7">Programming Languages</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tg-baqh">C++</td>
+      </tr>
+      <tr>
+        <td class="tg-baqh">JavaScript</td>
+      </tr>
+            <tr>
+        <td class="tg-baqh">C#</td>
+      </tr>
+      <tr>
+        <td class="tg-baqh">Rust (familiar)</td>
+      </tr>
+    </tbody>
+    </table>
   </div>
   <div class="Grid-cell Grid-cell--centerText">
-    <div class ="Grid-cell--cellHeader"> APIs </div>
-    <ul>
-      <li> JUCE </li>
-      <li> Wwise SDK API </li>
-      <li> ImGUI </li>
-    </ul>
+    <table class="tg">
+    <thead>
+      <tr>
+        <th class="tg-u0o7" colspan="2">APIs and Frameworks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tg-0pky">JUCE</td>
+        <td class="tg-0pky">Node.js</td>
+      </tr>
+      <tr>
+        <td class="tg-0pky">Wwise</td>
+        <td class="tg-0pky">Web Audio</td>
+      </tr>
+      <tr>
+        <td class="tg-0pky">FMOD</td>
+        <td class="tg-0pky">ImGUI</td>
+      </tr>
+    </tbody>
+    </table>
   </div>
   <div class="Grid-cell Grid-cell--centerText">
-    <div class ="Grid-cell--cellHeader"> Workflow </div>
-     <ul>
-      <li> Agile </li>
-      <li> Scrum </li>
-      <li> Kanban </li>
-    </ul>
-  </div>
-  <div class="Grid-cell Grid-cell--centerText">
-    <div class ="Grid-cell--cellHeader"> Version Control </div>
-    <ul>
-      <li> Git </li>
-      <li> Perforce </li>
-      <li> SVN (familiar) </li>
-    </ul>
+    <table class="tg">
+    <thead>
+      <tr>
+        <th class="tg-u0o7">Version Control</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tg-0pky">Git</td>
+      </tr>
+      <tr>
+        <td class="tg-0pky">Perforce</td>
+      </tr>
+      <tr>
+        <td class="tg-0pky">SVN (Familiar)</td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 </div>
+
+
 ## Internship Experience
+
+### Audio R&D Intern
+`June 2020 - Sept 2020`
+Qualcomm, Multimedia R&D Team - Redmond, Washington (Remote)
+- __Researching__ new types of innovative audio technology
 
 ### Audio Programming Intern
 `May 2019 - Aug 2019`
@@ -80,7 +121,7 @@ Tsugi Studio - Niigata, Japan
 Higher Power - Team Size: 7
 
 - __Built__ a VR God Game for the Oculus rift using the Unreal Engine.
-- __Programed__ a custom Wwise HRTF plugin in C++ to better understand audio spatialization.
+- __Programed__ a custom Wwise [HRTF](portfolio/HRTF.html){: .u-project } plugin in C++ to better understand audio spatialization.
 - __Architected__ a C++ Blueprint Temperature System to allow for emergent gameplay.
 - __Ensured__ that code quality adhered to style and performance standards by using an Unreal Style Guide.
 
@@ -91,6 +132,7 @@ Higher Power - Team Size: 7
 - __Created__ a Custom 2D Game Engine in C++ and OpenGL.
 - __Architected and Implemented__ a component system for dynamic Game Object Creation.
 - __Designed and Built__ a scene and game object editor using ImGUI to allow our Game Designers to work in-engine.
+
 
 ## Audio Programming Projects
 
@@ -108,7 +150,9 @@ Course: Introduction to Audio Programming (ECE101L)
 - __Programmed__ an ARM Microcontroller to be an Additive MIDI Synthesizer.
 - __Designed__  a system to parse and understand MIDI Commands in real-time.
 - __Gained Experienced__ with Q-Format Integer Math
-- __Built__ a DIgital Variable State Filter to gain familiarity with Digital Signal Processing.
+
+
+<div class="disabled">
 
 ## Leadership Experience
 
@@ -117,6 +161,8 @@ Course: Introduction to Audio Programming (ECE101L)
 
 - __Mentored__ over 40 students on the fundementals of audio programming.
 - __Graded__ programming assignments based on high-quality code via style and performance metrics.
+
+</div>
 
 <!-- ### Footer
 
