@@ -103,7 +103,9 @@ DigiPen Institute of Technology
 ### Audio R&D Intern
 `June 2020 - Sept 2020`
 Qualcomm, Multimedia R&D Team - Redmond, Washington (Remote)
-- __Researching__ new types of innovative audio technology
+- __Researched__ methods of minimizing audio motion latency in interactive experiences to provide a more enjoyable and responsive experience for the listener.
+- __Prototyped__ new spatial audio streaming technologies to bring high-quality immerisve audio exxperiences to a wider consumer audience
+- __Developed__ a custom end-to-end audio experience in C++ and JavaScript to demonstrate the viability of the prototyped technologies.
 
 ### Audio Programming Intern
 `May 2019 - Aug 2019`
