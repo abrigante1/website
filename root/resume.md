@@ -49,7 +49,7 @@ DigiPen Institute of Technology
       <tr>
         <td class="tg-baqh">Rust (familiar)</td>
       </tr>
-    </tbody>
+    </tbody> 
     </table>
   </div>
   <div class="Grid-cell Grid-cell--centerText">
@@ -143,7 +143,7 @@ Higher Power - Team Size: 7
 
 - __Learned__ the fundementals of the JUCE Audio C++ API
 - __Implemented__ an effecient system capable of running 10 large grain clouds simultaniously in real-time.
-- __Architected__ a radnomization system for a grain's start/stop positions to create unique sound textures.
+- __Architected__ a randomization system for a grain's start/stop positions to create unique sound textures.
 
 ### MIDI Synthesizer
 `Jan 2017 - May 2017`
@@ -153,17 +153,16 @@ Course: Introduction to Audio Programming (ECE101L)
 - __Designed__  a system to parse and understand MIDI Commands in real-time.
 - __Gained Experienced__ with Q-Format Integer Math
 
-
-<div class="disabled">
-
 ## Leadership Experience
 
 ### Teacher's Assistant - Introduction to Audio Programming (ECE101L)
 `Jan 2018 - Present`
 
 - __Mentored__ over 40 students on the fundementals of audio programming.
+- __Taught__ students how to build an Additive MIDI Synthesizer on an ARM microcontroller.
 - __Graded__ programming assignments based on high-quality code via style and performance metrics.
 
+<div class="disabled">
 </div>
 
 <!-- ### Footer
