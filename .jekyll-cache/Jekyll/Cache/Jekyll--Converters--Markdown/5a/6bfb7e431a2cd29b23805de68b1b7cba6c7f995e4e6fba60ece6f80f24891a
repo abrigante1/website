@@ -1,0 +1,12 @@
+I"Z
+<p>This is a Custom HRTF Plugin created for the Wwise Audio Middleware.</p>
+
+<p>I wrote this plugin from scratch over the course of 4 months, and was responsible for all design and implementation of the HRTF FIR Filter.</p>
+
+<p>This project was a great introduction for me into the realm of real-time DSP and optimizations. Initially, I started this project with my Object-Oriented Programming mindset and went to work. However, I quickly discovered that when working on low-level audio subsystems, function calls, loops, and more can have a serious impact on performance.</p>
+
+<p>This required me to shift away from the design patterns I was used to and adopt a more data-oriented design focus. By taking a step back and writing code that focused on efficient memory layout, and easy vectorization, I was able to see a performance increase of 3 simultaneous HRTF objects, to 100.<br />
+W
+While this was intended for use in <a href="./HigherPower.html">Higher Power</a>, a VR God Game built in unreal, this was primarily a solo project that I implemented independently for later use in the team’s project.</p>
+
+:ET
