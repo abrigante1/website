@@ -118,9 +118,9 @@ Tsugi Studio - Niigata, Japan
 
 ## Academic Game Projects
 
-### Audio Programmer | Technical Director
+### Game Programmer | Technical Director
 `April 2018 - April 2019`
-Higher Power - Team Size: 7
+[Higher Power](portfolio/HigherPower.html){: .u-project } - Team Size: 7
 
 - __Built__ a VR God Game for the Oculus rift using the Unreal Engine.
 - __Programed__ a custom Wwise [HRTF](portfolio/HRTF.html){: .u-project } plugin in C++ to better understand audio spatialization.
