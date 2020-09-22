@@ -36,7 +36,7 @@ time, mark, audio, video {
 .tg .tg-akbm{font-weight:bold;text-align:center;text-decoration:underline;vertical-align:top}
 
 #resume {
-	--font-scalar: 0.8;
+	--font-scalar: 0.725;
 	-webkit-print-color-adjust: exact;
 }
 
@@ -68,7 +68,19 @@ q:before, q:after {
 
 #resume .disabled {
 	visibility: hidden;
+	display: none;
 }
+
+#resume .disabled-print {
+	visibility: hidden;
+	display: none;
+}
+
+#resume .screen-only {
+	visibility: hidden;
+	display: none;
+}
+
 
 #resume .u-fontScalar {
 	font-size: calc(var(--font-scalar) * 100%)
@@ -110,7 +122,7 @@ q:before, q:after {
 #resume ul {
 	position: relative;
 	left: 2.5%;
-	width: calc(var(--font-scalar) * 90%);
+	width: calc(var(--font-scalar) * 100%);
 	margin-top: calc(var(--font-scalar) * -0.5em);
 	margin-bottom: calc(var(--font-scalar) * 0.05em);
 	font-size: calc(var(--font-scalar) * 100%);
@@ -178,7 +190,7 @@ q:before, q:after {
 	line-height: calc(var(--font-scalar) * 1em);
 	margin-top: calc(var(--font-scalar) * 1.0em);
 	position: relative;
-	left: 2%;
+	padding-left: 2%;
 }
 
 #resume h3+p {
@@ -187,7 +199,7 @@ q:before, q:after {
 	line-height: calc(var(--font-scalar) * 1em);
 	margin-top: calc(var(--font-scalar) * 0.25em);
 	position: relative;
-	left: 2%;
+	padding-left: 2%;
 	font-style: italic;
 }
 
