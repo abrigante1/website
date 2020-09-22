@@ -8,15 +8,26 @@ show_title: false
 # Anthony Brigante
 
 
-<div class="Grid Grid--gutters large-Grid--fit u-textCenter u-contactInfo">
+<div class="screen-only Grid Grid--gutters large-Grid--fit u-textCenter u-contactInfo">
   <div class="Grid-cell">
-    <a href="mailto:anthonyprbrigante@gmail.com">anthonypbrigante@gmail.com</a>
+    <a href="mailto:anthonyprbrigante@gmail.com" >anthonypbrigante@gmail.com</a>
   </div>
   <div class="Grid-cell">
-    <a href="https://www.linkedin.com/in/apbrigante">LinkedIn</a>
+    <a class="screen-only" href="https://www.linkedin.com/in/apbrigante">LinkedIn</a>
   </div>
   <div class="Grid-cell">
-    <a href="https://www.github.com/abrigante1">GitHub</a>
+    <a class="screen-only" href="https://www.github.com/abrigante1">GitHub</a>
+  </div>
+</div>
+<div class="print-only Grid Grid--gutters large-Grid--fit u-textCenter u-contactInfo">
+  <div class="Grid-cell">
+    anthonypbrigante@gmail.com
+  </div>
+  <div class="Grid-cell">
+    631-626-0684
+  </div>
+  <div class="Grid-cell">
+    www.abrigante.com
   </div>
 </div>
 
@@ -79,18 +90,15 @@ DigiPen Institute of Technology
     <table class="tg">
     <thead>
       <tr>
-        <th class="tg-u0o7">Version Control</th>
+        <th class="tg-u0o7">Game Engines</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="tg-0pky">Git</td>
+        <td class="tg-0pky">Unreal Engine (familiar)</td>
       </tr>
       <tr>
-        <td class="tg-0pky">Perforce</td>
-      </tr>
-      <tr>
-        <td class="tg-0pky">SVN (Familiar)</td>
+        <td class="tg-0pky">Unity (familiar)</td>
       </tr>
     </tbody>
     </table>
@@ -118,25 +126,44 @@ Tsugi Studio - Niigata, Japan
 
 ## Academic Game Projects
 
-### Game Programmer | Technical Director
+<div class="disabled-print" markdown="1">
+
+### Gameplay Programmer
+`September 2020 - Present`
+Aster (Work in Progress) - Team Size: 6
+- __Developing__ a Spell Crafting and Combat Game built in Unreal Engine 4 focused on making players feel like a powerful Mage.
+- __Prototyped__ a basic Spell interface that helps the team quickly create new and interesting spells.
+- __Designing__ a Spell Crafting System implementation that lets players combine spell components to create a variety of unique spells.
+
+</div>
+
+### Gameplay Programmer | Technical Director
 `April 2018 - April 2019`
 [Higher Power](portfolio/HigherPower.html){: .u-project } - Team Size: 7
 
-- __Built__ a VR God Game for the Oculus rift using the Unreal Engine.
-- __Programed__ a custom Wwise [HRTF](portfolio/HRTF.html){: .u-project } plugin in C++ to better understand audio spatialization.
-- __Architected__ a C++ Blueprint Temperature System to allow for emergent gameplay.
+- __Built__ a VR God Game for the Oculus Rift using Unreal Engine 4.
+- __Designed and Programmed__ a C++ Temperature System to provide new and exciting emergent gameplay experiences for our players
+- __Implemented__ a Blueprint Wrapper around the Temperature System to help designers quickly tweek and modify the underlying logic.
 - __Ensured__ that code quality adhered to style and performance standards by using an Unreal Style Guide.
 
 ### Core Engine Programmer | Tools Programmer
 `Sept 2017 - April 2018`
 [Contingency](portfolio/ember_editor.html){: .u-project } - Team Size: 7
 
-- __Created__ a Custom 2D Game Engine in C++ and OpenGL.
-- __Architected and Implemented__ a component system for dynamic Game Object Creation.
-- __Designed and Built__ a scene and game object editor using ImGUI to allow our Game Designers to work in-engine.
+- __Created__ a Custom 2D Game Engine in C++ and OpenGL with a user-friendly API.
+- __Architected and Implemented__ a component system for dynamic Game Object Creation to allow for robost and rapid prototyping.
+- __Designed and Built__ a scene and game object editor using ImGUI to allow our Game Designers to work in-engine with no programming required.
+
+
 
 
 ## Audio Programming Projects
+
+### [HRTF Wwise Plugin](portfolio/HRTF.html){: .u-project }
+- __Researched__ HRTF filter design and architecture to gain experience with spatialization DSP. 
+- __Developed__ a custom time-domain HRTF plugin in C++ capable of spatializing ~100 concurrent audio sources to allow for creation of more immersive player experiences
+- __Learned__ the inner workings of the Wwise Plugin API to expand my understanding of Wwise and it's API ecosystem.
+
 
 ### [Granular Synthesizer](portfolio/granular_synth.html){: .u-project }
 `March 2019 - May 2019`
@@ -144,6 +171,8 @@ Tsugi Studio - Niigata, Japan
 - __Learned__ the fundementals of the JUCE Audio C++ API
 - __Implemented__ an effecient system capable of running 10 large grain clouds simultaniously in real-time.
 - __Architected__ a randomization system for a grain's start/stop positions to create unique sound textures.
+
+<div class="disabled-print" markdown="1">
 
 ### MIDI Synthesizer
 `Jan 2017 - May 2017`
@@ -162,7 +191,6 @@ Course: Introduction to Audio Programming (ECE101L)
 - __Taught__ students how to build an Additive MIDI Synthesizer on an ARM microcontroller.
 - __Graded__ programming assignments based on high-quality code via style and performance metrics.
 
-<div class="disabled">
 </div>
 
 <!-- ### Footer
