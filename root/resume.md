@@ -167,7 +167,7 @@ Aster (Work in Progress) - Team Size: 6
 - __Architected__ a randomization system for a grain's start/stop positions to create unique sound textures.
 
 ### [HRTF Wwise Plugin](portfolio/HRTF.html){: .u-project }
-`September 2018 - December 2018`
+`September 2018 - December 2018` 
 
 - __Researched__ HRTF filter design and architecture to gain experience with spatialization DSP. 
 - __Developed__ a custom time-domain HRTF plugin in C++ capable of spatializing ~100 concurrent audio sources to allow for creation of more immersive player experiences
