@@ -138,7 +138,7 @@ Aster (Work in Progress) - Team Size: 6
 </div>
 
 ### Gameplay Programmer | Technical Director
-`April 2018 - April 2019`
+`September 2018 - April 2019`
 [Higher Power](portfolio/HigherPower.html){: .u-project } - Team Size: 7
 
 - __Built__ a VR God Game for the Oculus Rift using Unreal Engine 4.
@@ -159,18 +159,19 @@ Aster (Work in Progress) - Team Size: 6
 
 ## Audio Programming Projects
 
-### [HRTF Wwise Plugin](portfolio/HRTF.html){: .u-project }
-- __Researched__ HRTF filter design and architecture to gain experience with spatialization DSP. 
-- __Developed__ a custom time-domain HRTF plugin in C++ capable of spatializing ~100 concurrent audio sources to allow for creation of more immersive player experiences
-- __Learned__ the inner workings of the Wwise Plugin API to expand my understanding of Wwise and it's API ecosystem.
-
-
 ### [Granular Synthesizer](portfolio/granular_synth.html){: .u-project }
 `March 2019 - May 2019`
 
 - __Learned__ the fundementals of the JUCE Audio C++ API
 - __Implemented__ an effecient system capable of running 10 large grain clouds simultaniously in real-time.
 - __Architected__ a randomization system for a grain's start/stop positions to create unique sound textures.
+
+### [HRTF Wwise Plugin](portfolio/HRTF.html){: .u-project }
+`September 2018 - December 2018`
+
+- __Researched__ HRTF filter design and architecture to gain experience with spatialization DSP. 
+- __Developed__ a custom time-domain HRTF plugin in C++ capable of spatializing ~100 concurrent audio sources to allow for creation of more immersive player experiences
+- __Learned__ the inner workings of the Wwise Plugin API to expand my understanding of Wwise and it's API ecosystem.
 
 <div class="disabled-print" markdown="1">
 
