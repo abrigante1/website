@@ -23,7 +23,7 @@ show_title: false
     anthonypbrigante@gmail.com
   </div>
   <div class="Grid-cell">
-    631-626-0684
+    631-626-1405
   </div>
   <div class="Grid-cell">
     www.abrigante.com
@@ -36,7 +36,7 @@ show_title: false
 `April 2021` 
 DigiPen Institute of Technology
 
-## Skills
+## Technical Skills
 
 <div class="Grid Grid--gutters u-fontScalar center-grid">
   <div class="Grid-cell Grid-cell--centerText center-grid">
@@ -142,15 +142,16 @@ Audio Programming Intern
 - __Ported__ C# DSP objects into C++.
 - __Wrote__ a C/C++ Fast Fourier Transform capable of using a 4096-byte window in real-time.
 
-
 ## Audio Programming Projects
 
+<div class="disabled-print" markdown="1">
 ### [Granular Synthesizer](portfolio/granular_synth.html){: .u-project }
 `March 2019 - May 2019`
 
 - __Learned__ the fundementals of the JUCE Audio C++ API
 - __Implemented__ an effecient system capable of running 10 large grain clouds simultaniously in real-time.
 - __Architected__ a randomization system for a grain's start/stop positions to create unique sound textures.
+</div>
 
 ### [HRTF Wwise Plugin](portfolio/HRTF.html){: .u-project }
 `September 2018 - December 2018` 
@@ -167,7 +168,10 @@ Course: Introduction to Audio Programming (ECE101L)
 - __Designed__  a system to parse and understand MIDI Commands in real-time.
 - __Gained Experienced__ with Q-Format Integer Math
 
-## Academic Game Projects <div class="disabled-print" markdown="1"
+
+<div class="disabled-print" markdown="1">
+
+## Academic Game Projects 
 
 ### Gameplay Programmer
 `September 2020 - December 2021`
@@ -193,28 +197,28 @@ Aster - Team Size: 6
 - __Architected and Implemented__ a component system for dynamic Game Object Creation to allow for robost and rapid prototyping.
 - __Designed and Built__ a scene and game object editor using ImGUI to allow our Game Designers to work in-engine with no programming required.
 
-</div>
-
-## Leadership Experience
+## Teaching & Leadership Experience
 
 ### DigiPen Institute of Technology
 Teacher's Assistant - Introduction to Audio Programming
-`Jan 2018 - Present`
-
+`Jan 2018 - May 2020`
 - __Mentored__ over 40 students on the fundementals of audio programming.
 - __Taught__ students how to build an Additive MIDI Synthesizer on an ARM microcontroller.
 - __Graded__ programming assignments based on high-quality code via style and performance metrics.
 
+### ProjectFUN 
+Lead Instructor - Video Game Programming (AP Computer Science A)
+`Summer 2018`
+- __Co-instructed__ a class of 30 students the foundations of Java through video game programming 
+- __Refined__ the existing course curriculum to be bought up to date with modern Comp. Sci. content
+- __Engaged__ students in hand-on learning of Java programming with well-defined benchmarks and game development milestones
+
 ### We Connect the Dots (Non-Profit)
 Community Ambassador
-`Jan 2016 - Jan 2018`
+`Jan 2016 - Jan 2017`
 - __Taught__ a weekly extracurricular TouchDevelop course a class of 20 5th graders to encourage the learning of
 Computer Science at an early age
 - __Lectured__ an audience of 150+ students ranging from 13 - 18 on the basics of Computer Programming
 - __Presented__ We Connect the Dots to a panel of Harvard Business School Judges as a part of a venture captial competition
 
-<!-- ### Footer
-
-Last updated: May 2013 -->
-
-
+<div class="disabled-print" markdown="1">
