@@ -33,7 +33,7 @@ show_title: false
 ## Education
 
 ### Bachelor of Science in Computer Science
-`April 2021` 
+`July 2021` 
 DigiPen Institute of Technology
 
 ## Technical Skills
@@ -144,10 +144,9 @@ Audio Programming Intern
 
 ## Audio Programming Projects
 
-<div class="disabled-print" markdown="1">
+<div class="disabled-print" markdown="1"> 
 ### [Granular Synthesizer](portfolio/granular_synth.html){: .u-project }
 `March 2019 - May 2019`
-
 - __Learned__ the fundementals of the JUCE Audio C++ API
 - __Implemented__ an effecient system capable of running 10 large grain clouds simultaniously in real-time.
 - __Architected__ a randomization system for a grain's start/stop positions to create unique sound textures.
@@ -155,7 +154,6 @@ Audio Programming Intern
 
 ### [HRTF Wwise Plugin](portfolio/HRTF.html){: .u-project }
 `September 2018 - December 2018` 
-
 - __Researched__ HRTF filter design and architecture to gain experience with spatialization DSP. 
 - __Developed__ a custom time-domain HRTF plugin in C++ capable of spatializing ~100 concurrent audio sources to allow for creation of more immersive player experiences
 - __Learned__ the inner workings of the Wwise Plugin API to expand my understanding of Wwise and it's API ecosystem.
@@ -163,13 +161,11 @@ Audio Programming Intern
 ### MIDI Synthesizer
 `Jan 2017 - May 2017`
 Course: Introduction to Audio Programming (ECE101L)
-
-- __Programmed__ an ARM Microcontroller to be an Additive MIDI Synthesizer.
+- __Prograbundlmmed__ an ARM Microcontroller to be an Additive MIDI Synthesizer.
 - __Designed__  a system to parse and understand MIDI Commands in real-time.
 - __Gained Experienced__ with Q-Format Integer Math
 
-
-<div class="disabled-print" markdown="1">
+<div class="disabled-print" markdown="1"> 
 
 ## Academic Game Projects 
 
@@ -208,7 +204,7 @@ Teacher's Assistant - Introduction to Audio Programming
 
 ### ProjectFUN 
 Lead Instructor - Video Game Programming (AP Computer Science A)
-`Summer 2018`
+`May 2018 - August 2018`
 - __Co-instructed__ a class of 30 students the foundations of Java through video game programming 
 - __Refined__ the existing course curriculum to be bought up to date with modern Comp. Sci. content
 - __Engaged__ students in hand-on learning of Java programming with well-defined benchmarks and game development milestones
@@ -221,4 +217,4 @@ Computer Science at an early age
 - __Lectured__ an audience of 150+ students ranging from 13 - 18 on the basics of Computer Programming
 - __Presented__ We Connect the Dots to a panel of Harvard Business School Judges as a part of a venture captial competition
 
-<div class="disabled-print" markdown="1">
+</div>
