@@ -8,5 +8,8 @@
 
 # Updating Live Website
 
-- Commit the `_site` directory to the gh-pages branch
-    - master is just for the source / local server building
+- Switch to the gh-pages branch
+- Upon switching, everything will update *with the execption* of `_site`
+- Delete everything in directory execept `_site`
+- Copy contents from `_site` up to the root directory
+- Commit changes
