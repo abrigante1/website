@@ -94,6 +94,16 @@ q:before, q:after {
 	margin-left: calc(var(--font-scalar) * 1.0em);
 }
 
+/* Skills Grid */
+#resume table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	max-width: 600px; /* Adjust this value as needed */
+	margin-left: auto;
+	margin-right: auto;
+	line-height: 1.1em;
+}
+
 /* Title Subtitle */
 #resume p {
 	position: relative;
@@ -121,7 +131,7 @@ q:before, q:after {
 #resume ul {
 	position: relative;
 	left: 2.5%;
-	width: calc(var(--font-scalar) * 90%);
+	width: 90%;
 	margin-top: calc(var(--font-scalar) * -0.5em);
 	margin-bottom: calc(var(--font-scalar) * 0.05em);
 	font-size: calc(var(--font-scalar) * 100%);
@@ -147,9 +157,13 @@ q:before, q:after {
 	width: 100%;
 }
 
+#resume li strong {
+  font-weight: 600; /* or 500 for even lighter bold */
+}
+
 /* General Header Settings */
 #resume h1,h2,h3,h4 {
-	font-weight: 400;
+	font-weight: 600;
 	font-family: Avenir,Cousine,Verdana,sans-serif;
 }
 
@@ -175,10 +189,10 @@ q:before, q:after {
 #resume h2 {
 	font-size: calc(var(--font-scalar) * 1.3em);
 	color: #2e75b5;
-	margin-top: calc(var(--font-scalar) * 0.5em);
+	margin-top: calc(var(--font-scalar) * 0.75em);
 	position: relative;
 	text-align: left;
-	text-decoration: underline;
+	border-bottom: 2px solid;
 }
 
 /* Listing */
@@ -189,6 +203,7 @@ q:before, q:after {
 	margin-top: calc(var(--font-scalar) * 1.0em);
 	position: relative;
 	padding-left: 2%;
+	font-weight: 800;
 }
 
 #resume h3+p {
@@ -199,9 +214,19 @@ q:before, q:after {
 	position: relative;
 	padding-left: 2%;
 	font-style: italic;
+	text-decoration: underline;
 }
 
- 
+#resume h3+p .degree { 
+	text-decoration: none !important;
+	display: inline-block;
+}
+
+#resume .tech-skills {
+  font-size: calc(var(--font-scalar) * 90%);
+	padding-left: 2%;
+}
+
 #resume a {
 	color: inherit;
 	font-weight: normal;
