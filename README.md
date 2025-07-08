@@ -12,4 +12,5 @@
 - Upon switching, everything will update *with the execption* of `_site`
 - Delete everything in directory execept `_site`
 - Copy contents from `_site` up to the root directory
+    - After copying up from `_site`, delete `_site`!
 - Commit changes
