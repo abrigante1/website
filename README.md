@@ -8,9 +8,8 @@
 
 # Updating Live Website
 
+- Copy and paste the `_site` folder to the parent directory of the repo
 - Switch to the gh-pages branch
-- Upon switching, everything will update *with the execption* of `_site`
-- Delete everything in directory execept `_site`
-- Copy contents from `_site` up to the root directory
+- Copy contents from `_site` to the repo directory, replacing all files.
     - After copying up from `_site`, delete `_site`!
 - Commit changes
